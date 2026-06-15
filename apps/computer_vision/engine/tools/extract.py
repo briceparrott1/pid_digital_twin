@@ -1,9 +1,12 @@
 import base64
 import json
+import logging
 
 import anthropic
 
 from core.config import get_settings
+
+logger = logging.getLogger(__name__)
 
 
 class ExtractionError(Exception):
@@ -64,17 +67,21 @@ async def extract_page(image: bytes, prompt: str, model: str | None = None) -> d
         {"type": "text", "text": prompt},
     ]
 
-    print("Sending P&ID page to Anthropic...")
+    logger.info("sending P&ID page to Anthropic (model=%s)", model or settings.model)
     async with client.messages.stream(
         model=model or settings.model,
         max_tokens=64000,
         messages=[{"role": "user", "content": content}],
     ) as stream:
         response = await stream.get_final_message()
-    print("Received P&ID extraction from Anthropic")
+    logger.info(
+        "received P&ID extraction from Anthropic (input_tokens=%d output_tokens=%d)",
+        response.usage.input_tokens,
+        response.usage.output_tokens,
+    )
 
     result = _parse_response(response)
     if uncertainties := result.get("uncertainties"):
-        print(f"Claude's uncertainties for this page: {uncertainties}")
+        logger.warning("Claude extraction uncertainties: %s", uncertainties)
 
     return result

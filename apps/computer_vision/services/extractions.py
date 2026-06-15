@@ -1,14 +1,16 @@
 import asyncio
 import json
+import logging
 
-from parsers.pid_parser import render_pages
-from parsers.sop_parser import parse_sop
-from extraction.extractors import extract_pid, extract_sop_requirements
-from extraction.prompts import get_pid_prompt, get_sop_prompt
 from core.config import get_settings
 from db.loader import update_job_status, write_extraction
+from extraction.extractors import extract_pid, extract_sop_requirements
+from extraction.prompts import get_pid_prompt, get_sop_prompt
+from parsers.pid_parser import render_pages
+from parsers.sop_parser import parse_sop
 
 settings = get_settings()
+logger = logging.getLogger(__name__)
 
 
 async def build_pid_extraction() -> dict:
@@ -39,8 +41,8 @@ async def build_pid_graph(job_id: str) -> dict:
 # parsed sop text is injected into prompt (why we're not passing sop text to extract_sop_requirements)
 async def build_sop_requirements(sop_path: str) -> list:
     sop_text = parse_sop(sop_path)
-    print(f"Parsed SOP text ({sop_path}):\n{sop_text}")
+    logger.debug("parsed SOP text from %s:\n%s", sop_path, sop_text)
     prompt = get_sop_prompt(sop_text)
     requirements = await extract_sop_requirements(prompt)
-    print(f"Parsed SOP requirements:\n{json.dumps(requirements, indent=2)}")
+    logger.debug("parsed SOP requirements:\n%s", json.dumps(requirements, indent=2))
     return requirements

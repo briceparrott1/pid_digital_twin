@@ -1,8 +1,11 @@
 import json
+import logging
 from datetime import datetime
 from uuid import uuid4
 
 from db.neo4j_client import get_driver
+
+logger = logging.getLogger(__name__)
 
 driver = get_driver()
 
@@ -67,11 +70,11 @@ def write_extraction(job_id: str, extraction: dict):
             from_id = id_map.get((connection["page"], connection["start_id"]))
             to_id = id_map.get((connection["page"], connection["end_id"]))
             if from_id is None or to_id is None:
-                print(
-                    f"Skipping connection: "
-                    f"unresolved start_id={connection['start_id']!r} "
-                    f"or end_id={connection['end_id']!r} "
-                    f"on page {connection['page']!r}"
+                logger.warning(
+                    "skipping connection — unresolved start_id=%r or end_id=%r on page %r",
+                    connection["start_id"],
+                    connection["end_id"],
+                    connection["page"],
                 )
                 continue
 

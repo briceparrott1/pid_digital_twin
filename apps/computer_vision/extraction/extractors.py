@@ -1,9 +1,13 @@
-import anthropic
 import json
+import logging
+
+import anthropic
+
 from core.config import get_settings
 from engine.orchestrator import run_algo
 
 client = anthropic.AsyncAnthropic(api_key=get_settings().anthropic_api_key)
+logger = logging.getLogger(__name__)
 
 
 def _parse_response(response) -> dict | list:
@@ -35,12 +39,12 @@ async def extract_pid(image: bytes, prompt: str, page: int) -> dict:
 
 
 async def extract_sop_requirements(prompt: str) -> list:
-    print("Sending SOP requirements to Anthropic...")
+    logger.info("sending SOP requirements to Anthropic")
     response = await client.messages.create(
         model="claude-opus-4-5",
         max_tokens=2048,
         messages=[{"role": "user", "content": prompt}],
     )
-    print("Received SOP requirements from Anthropic")
+    logger.info("received SOP requirements from Anthropic")
 
     return _parse_response(response)

@@ -1,4 +1,5 @@
 import json
+import logging
 from datetime import datetime, timezone
 
 from core.config import get_settings
@@ -12,6 +13,8 @@ from engine.tools.prompts import (
 )
 from engine.tools.resolve import flatten_metadata, resolve
 from engine.tools.segment import segment
+
+logger = logging.getLogger(__name__)
 
 
 def _merge_node(existing: dict, new: dict) -> None:
@@ -82,7 +85,7 @@ async def run_algo(image: bytes) -> dict:
                 )
             )
         except Exception as e:
-            print(f"Equipment metadata pass failed, skipping: {e}")
+            logger.warning("equipment metadata pass failed, skipping: %s", e)
 
         empty_specs = []
         for name, specs in (meta_result.get("equipment") or {}).items():
@@ -94,7 +97,10 @@ async def run_algo(image: bytes) -> dict:
             else:
                 empty_specs.append(name)
         if empty_specs:
-            print(f"Equipment with no metadata found: {', '.join(sorted(empty_specs))}")
+            logger.warning(
+                "equipment nodes with no metadata found: %s",
+                ", ".join(sorted(empty_specs)),
+            )
 
     resolved = {
         "nodes": list(all_nodes.values()),

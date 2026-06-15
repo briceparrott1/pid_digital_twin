@@ -23,7 +23,7 @@ docker compose up             # starts neo4j, computer-vision (API), frontend
 
 Click start job in the frontend and choose a test case. It kicks off the pipeline, polls for completion, then renders the extracted graph and the SOP violation report.
 
-Each selectable test case corresponds to one of the SOP documents in `computer_vision/data/sop/`. The expected violations for each case, meaning the ground truth of what the agent should flag, live in `computer_vision/data/sop/sop_truth/`. You can compare the generated report against the expected result for the case you ran.
+Each selectable test case corresponds to one of the SOP documents in `computer_vision/data/sop/`. The expected violations for each case, meaning the ground truth of what the agent should flag, live in `/apps/computer_vision/data/sop/sop_truth/`. You can compare the generated report against the expected result for the case you ran.
 
 The longest run I experienced was 4.5 minutes and $1.30 in tokens. This seemed to be an outlier, but because of the long and costly nature, I did not conduct signifcant testing of the entire pipeline. You might want to start a job, and then come back to this file. 
 

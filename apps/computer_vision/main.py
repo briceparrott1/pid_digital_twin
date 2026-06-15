@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from fastapi import BackgroundTasks, FastAPI, HTTPException
 
 from core.config import sop_path_for
+from core.logging_config import configure_logging
 from db.loader import write_job
 from db.queries import get_graph, get_job_status, get_violations, neo4j_is_connected
 from models.graph import GraphResponse, to_cytoscape
@@ -10,6 +11,7 @@ from models.job import HealthResponse, JobResponse
 from models.report import ReportResponse, Violation
 from pipeline import run_pipeline
 
+configure_logging()
 app = FastAPI()
 
 

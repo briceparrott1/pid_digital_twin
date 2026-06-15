@@ -1,5 +1,9 @@
+import logging
+
 import cv2
 import numpy as np
+
+logger = logging.getLogger(__name__)
 
 
 def _get_color(i: int) -> tuple[tuple[int, int, int], str]:
@@ -128,13 +132,13 @@ def colorize_lines(
         return buf.tobytes(), []
 
     paths = [((ln[0][0], ln[0][1]), (ln[0][2], ln[0][3])) for ln in raw_lines]
-    print(f"hough: {len(paths)}")
+    logger.debug("line detection — hough: %d", len(paths))
 
     # merge collinear segments, then keep horizontal/vertical only
     paths = _merge_collinear(paths, delta)
-    print(f"after merge: {len(paths)}")
+    logger.debug("line detection — after merge: %d", len(paths))
     paths = [p for p in paths if _is_pipe_angle(p[0], p[1])]
-    print(f"after angle filter: {len(paths)}")
+    logger.debug("line detection — after angle filter: %d", len(paths))
 
     if not paths:
         _, buf = cv2.imencode(".png", img)
