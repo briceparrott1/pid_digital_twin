@@ -1,0 +1,8 @@
+{
+  "description": "merge metadeta on dedupe-v3",
+  "run_number": 19,
+  "error_type": "KeyError",
+  "error": "' pressure_psig, temp_f '",
+  "stop_reason": null,
+  "timestamp": "2026-06-15T16:10:36.503810+00:00"
+}

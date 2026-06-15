@@ -1,0 +1,8 @@
+{
+  "description": "segmentation-v1",
+  "page": 1,
+  "model": "claude-opus-4-5",
+  "segments": 5,
+  "timestamp": "2026-06-14T21:54:59.012583+00:00",
+  "run_number": 4
+}

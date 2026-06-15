@@ -1,0 +1,26 @@
+# environment
+.env
+venv/
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# data 
+
+# outputs
+test.py
+*.log
+
+# node
+node_modules/
+
+# ide
+.vscode/
+.idea/
+.DS_Store

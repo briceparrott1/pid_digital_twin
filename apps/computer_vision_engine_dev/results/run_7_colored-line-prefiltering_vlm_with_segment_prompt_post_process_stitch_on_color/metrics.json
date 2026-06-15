@@ -1,0 +1,581 @@
+{
+  "summary": "SUMMARY: nodes F1=0.99 | metadata acc=0.00 | connections exact F1=0.11 fuzzy F1=0.32",
+  "node_detection": {
+    "equipment": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "hallucinated": [],
+      "missed": []
+    },
+    "instrument": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 6,
+      "fp": 0,
+      "fn": 0,
+      "hallucinated": [],
+      "missed": []
+    },
+    "valve": {
+      "precision": 0.9666666666666667,
+      "recall": 1.0,
+      "f1": 0.983050847457627,
+      "tp": 29,
+      "fp": 1,
+      "fn": 0,
+      "hallucinated": [
+        "MV-715-67"
+      ],
+      "missed": []
+    },
+    "overall": {
+      "precision": 0.9736842105263158,
+      "recall": 1.0,
+      "f1": 0.9866666666666666,
+      "tp": 37,
+      "fp": 1,
+      "fn": 0
+    }
+  },
+  "metadata_accuracy": {
+    "matched_equipment": [
+      "F-715A",
+      "F-715B"
+    ],
+    "overall_accuracy": 0.0,
+    "total_correct_fields": 0,
+    "total_fields": 16,
+    "per_node": {
+      "F-715A": {
+        "accuracy": 0.0,
+        "correct_fields": 0,
+        "total_fields": 8,
+        "wrong_fields": [
+          {
+            "field": "metadata_size",
+            "truth": "18'' O.D. x 42.5'' T/T",
+            "extracted": null
+          },
+          {
+            "field": "metadata_operating_pressure_psig",
+            "truth": 230,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_specs_pressure_psig",
+            "truth": 275,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_specs_temp_f",
+            "truth": 100,
+            "extracted": null
+          },
+          {
+            "field": "metadata_MDMT_pressure_psig",
+            "truth": 275,
+            "extracted": null
+          },
+          {
+            "field": "metadata_MDMT_temp_f",
+            "truth": 20,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_cap_gpm",
+            "truth": 180,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_cap_psid_clean",
+            "truth": 2.25,
+            "extracted": null
+          }
+        ]
+      },
+      "F-715B": {
+        "accuracy": 0.0,
+        "correct_fields": 0,
+        "total_fields": 8,
+        "wrong_fields": [
+          {
+            "field": "metadata_size",
+            "truth": "18'' O.D. x 42.5'' T/T",
+            "extracted": null
+          },
+          {
+            "field": "metadata_operating_pressure_psig",
+            "truth": 230,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_specs_pressure_psig",
+            "truth": 275,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_specs_temp_f",
+            "truth": 100,
+            "extracted": null
+          },
+          {
+            "field": "metadata_MDMT_pressure_psig",
+            "truth": 275,
+            "extracted": null
+          },
+          {
+            "field": "metadata_MDMT_temp_f",
+            "truth": 20,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_cap_gpm",
+            "truth": 180,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_cap_psid_clean",
+            "truth": 2.25,
+            "extracted": null
+          }
+        ]
+      }
+    }
+  },
+  "connections": {
+    "exact": {
+      "precision": 0.6666666666666666,
+      "recall": 0.06060606060606061,
+      "f1": 0.1111111111111111,
+      "tp": 4,
+      "fp": 2,
+      "fn": 62,
+      "missed": [
+        {
+          "start": "j4",
+          "end": "F-715A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "j6",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "j11",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-15B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j6",
+          "end": "MV-715-11",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j12",
+          "end": "TO_CLOSED_DRAIN_SYSTEM_10-0610",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j3",
+          "end": "MV-715-02B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-02B",
+          "end": "j16",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j7",
+          "end": "MV-715-05A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-13B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-10B",
+          "end": "j6",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j15",
+          "end": "MV-715-04B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-08A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-14B",
+          "end": "j11",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-15A",
+          "end": "j12",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j14",
+          "end": "MV-715-05B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j5",
+          "end": "MV-715-10A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-10A",
+          "end": "j6",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j9",
+          "end": "MV-720-01",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j5",
+          "end": "MV-715-09A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j6",
+          "end": "MV-715-14A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-12B",
+          "end": "DPI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j4",
+          "end": "MV-715-03A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-14A",
+          "end": "PI-715A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j5",
+          "end": "PSV-715A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j2",
+          "end": "MV-715-02",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-14B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j1",
+          "end": "MV-715-02A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-02A",
+          "end": "j4",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j3",
+          "end": "MV-715-01",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j1",
+          "end": "j2",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j2",
+          "end": "j3",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j6",
+          "end": "j7",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j8",
+          "end": "j10",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j10",
+          "end": "j9",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j11",
+          "end": "j12",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j13",
+          "end": "j12",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j15",
+          "end": "j14",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j14",
+          "end": "j8",
+          "line_type": "major_process"
+        },
+        {
+          "start": "DPI-715A",
+          "end": "MV-715-12A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j7",
+          "end": "MV-715-06A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-06A",
+          "end": "j8",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-12B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "PSV-715B",
+          "end": "MV-715-10B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-12A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j10",
+          "end": "MV-715-07",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-08B",
+          "end": "j18",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-08A",
+          "end": "j5",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-15A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j9",
+          "end": "MV-720-04",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-15B",
+          "end": "j13",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-03B",
+          "end": "PI-715B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j16",
+          "end": "MV-715-03B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "j15",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j16",
+          "end": "F-715B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-13B",
+          "end": "DPI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "FROM_SLUG_CATCHER_V-710",
+          "end": "j1",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j18",
+          "end": "MV-715-09B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-06B",
+          "end": "j8",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j18",
+          "end": "PSV-715B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-13A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-08B",
+          "line_type": "major_process"
+        }
+      ],
+      "hallucinated": [
+        {
+          "start": "MV-715-10A",
+          "end": "PSV-715A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-03A",
+          "line_type": "minor_process"
+        }
+      ]
+    },
+    "fuzzy": {
+      "precision": 0.6666666666666666,
+      "recall": 0.21052631578947367,
+      "f1": 0.32,
+      "tp": 4,
+      "fp": 2,
+      "fn": 15,
+      "missed": [
+        {
+          "start": "F-715B",
+          "end": "MV-715-14B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-15B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "DPI-715A",
+          "end": "MV-715-12A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-12B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "PSV-715B",
+          "end": "MV-715-10B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-13B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-12A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-08A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-15A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-03B",
+          "end": "PI-715B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-13B",
+          "end": "DPI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-12B",
+          "end": "DPI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-14A",
+          "end": "PI-715A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-13A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-08B",
+          "line_type": "major_process"
+        }
+      ],
+      "hallucinated": [
+        {
+          "start": "MV-715-10A",
+          "end": "PSV-715A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-03A",
+          "line_type": "minor_process"
+        }
+      ]
+    }
+  }
+}

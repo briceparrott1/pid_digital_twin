@@ -1,0 +1,12 @@
+{
+  "description": "colored-line-prefiltering-v2",
+  "page": 1,
+  "model": "claude-opus-4-5",
+  "segments": 5,
+  "total_nodes": 46,
+  "total_connections": 22,
+  "junctions_created": 3,
+  "lines_detected": 191,
+  "timestamp": "2026-06-15T02:53:07.953373+00:00",
+  "run_number": 8
+}

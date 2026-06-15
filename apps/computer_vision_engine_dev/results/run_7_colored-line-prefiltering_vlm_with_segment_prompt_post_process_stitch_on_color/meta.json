@@ -1,0 +1,12 @@
+{
+  "description": "colored-line-prefiltering, vlm with segment prompt, post process stitch on color",
+  "page": 1,
+  "model": "claude-opus-4-5",
+  "segments": 5,
+  "total_nodes": 43,
+  "total_connections": 6,
+  "junctions_created": 0,
+  "lines_detected": 191,
+  "timestamp": "2026-06-15T02:44:18.845321+00:00",
+  "run_number": 7
+}

@@ -1,0 +1,948 @@
+{
+  "nodes": [
+    {
+      "id_temp": "equip-f715a-001",
+      "level": "equipment",
+      "component_name": "F-715 A & B PARTICULATE FILTER SEPARATOR",
+      "metadata": {
+        "size": "18\" O.D. x 42.5\" T/T",
+        "operating_pressure_psig": 250,
+        "design_pressure_psig_at_100f": 275,
+        "mdmt": "-20\u00b0F @ 275 PSIG",
+        "design_capacity_gpm": 180,
+        "design_capacity_psid": 2.25,
+        "condition": "CLEAN"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "equip-f715a-visual",
+      "level": "equipment",
+      "component_name": "F-715A",
+      "metadata": {
+        "description": "Particulate Filter Separator A"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "equip-f715b-visual",
+      "level": "equipment",
+      "component_name": "F-715B",
+      "metadata": {
+        "description": "Particulate Filter Separator B"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "inst-psv-715a",
+      "level": "instrument",
+      "component_name": "PSV-715A",
+      "metadata": {
+        "type": "pressure_safety_valve",
+        "parent_component_name": "F-715A",
+        "set_point_psig": 275,
+        "size": "3/4\"x1\""
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "inst-psv-715b",
+      "level": "instrument",
+      "component_name": "PSV-715B",
+      "metadata": {
+        "type": "pressure_safety_valve",
+        "parent_component_name": "F-715B",
+        "set_point_psig": 275,
+        "size": "3/4\"x1\""
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "inst-pi-715a",
+      "level": "instrument",
+      "component_name": "PI-715A",
+      "metadata": {
+        "type": "pressure_indicator",
+        "parent_component_name": "F-715A"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "inst-pi-715b",
+      "level": "instrument",
+      "component_name": "PI-715B",
+      "metadata": {
+        "type": "pressure_indicator",
+        "parent_component_name": "F-715B"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "inst-pdi-715a",
+      "level": "instrument",
+      "component_name": "PDI-715A",
+      "metadata": {
+        "type": "pressure_differential_indicator",
+        "parent_component_name": "F-715A"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "inst-pdi-715b",
+      "level": "instrument",
+      "component_name": "PDI-715B",
+      "metadata": {
+        "type": "pressure_differential_indicator",
+        "parent_component_name": "F-715B"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "inst-ti-715a",
+      "level": "instrument",
+      "component_name": "TI-715A",
+      "metadata": {
+        "type": "temperature_indicator",
+        "parent_component_name": "F-715A"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "inst-ti-715b",
+      "level": "instrument",
+      "component_name": "TI-715B",
+      "metadata": {
+        "type": "temperature_indicator",
+        "parent_component_name": "F-715B"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-01",
+      "level": "valve",
+      "component_name": "MV-715-01",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715A",
+        "parent_pipe": "6\"-PL-2000-D"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "valve-mv-715-02a",
+      "level": "valve",
+      "component_name": "MV-715-02A",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715A"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "valve-mv-715-02b",
+      "level": "valve",
+      "component_name": "MV-715-02B",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715B"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "valve-mv-715-03a",
+      "level": "valve",
+      "component_name": "MV-715-03A",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715A"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-03b",
+      "level": "valve",
+      "component_name": "MV-715-03B",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715B"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-04a",
+      "level": "valve",
+      "component_name": "MV-715-04A",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715A"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-04b",
+      "level": "valve",
+      "component_name": "MV-715-04B",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715B"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-05a",
+      "level": "valve",
+      "component_name": "MV-715-05A",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715A"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-05b",
+      "level": "valve",
+      "component_name": "MV-715-05B",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715B"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-06a",
+      "level": "valve",
+      "component_name": "MV-715-06A",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715A"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-06b",
+      "level": "valve",
+      "component_name": "MV-715-06B",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715B"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-07a",
+      "level": "valve",
+      "component_name": "MV-715-07A",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715A"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-07b",
+      "level": "valve",
+      "component_name": "MV-715-07B",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715B"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-08a",
+      "level": "valve",
+      "component_name": "MV-715-08A",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715A"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-08b",
+      "level": "valve",
+      "component_name": "MV-715-08B",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715B"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-09a",
+      "level": "valve",
+      "component_name": "MV-715-09A",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715A"
+      },
+      "confidence": "low"
+    },
+    {
+      "id_temp": "valve-mv-715-09b",
+      "level": "valve",
+      "component_name": "MV-715-09B",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715B"
+      },
+      "confidence": "low"
+    },
+    {
+      "id_temp": "valve-mv-715-10a",
+      "level": "valve",
+      "component_name": "MV-715-10A",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715A"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-10b",
+      "level": "valve",
+      "component_name": "MV-715-10B",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715B"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-11",
+      "level": "valve",
+      "component_name": "MV-715-11",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_pipe": "1\"-D2S"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-12a",
+      "level": "valve",
+      "component_name": "MV-715-12A",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715A"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-12b",
+      "level": "valve",
+      "component_name": "MV-715-12B",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715B"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-13a",
+      "level": "valve",
+      "component_name": "MV-715-13A",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715A"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-13b",
+      "level": "valve",
+      "component_name": "MV-715-13B",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715B"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-14a",
+      "level": "valve",
+      "component_name": "MV-715-14A",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715A"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-715-14b",
+      "level": "valve",
+      "component_name": "MV-715-14B",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_component_name": "F-715B"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-720-01",
+      "level": "valve",
+      "component_name": "MV-720-01",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_pipe": "6\"-D2R"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-mv-720-04",
+      "level": "valve",
+      "component_name": "MV-720-04",
+      "metadata": {
+        "type": "manual_valve",
+        "parent_pipe": "1\"-D2S"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "valve-chk-mv-715-57",
+      "level": "valve",
+      "component_name": "MV-715-57",
+      "metadata": {
+        "type": "check_valve",
+        "parent_pipe": "1\"-D2S"
+      },
+      "confidence": "low"
+    },
+    {
+      "id_temp": "connector-inlet-tee-001",
+      "level": "connector",
+      "component_name": "connector",
+      "metadata": {
+        "description": "Tee junction where inlet pipe splits to F-715A and F-715B"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "connector-outlet-tee-001",
+      "level": "connector",
+      "component_name": "connector",
+      "metadata": {
+        "description": "Tee junction where outlet from F-715A and F-715B merge"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "connector-drain-tee-001",
+      "level": "connector",
+      "component_name": "connector",
+      "metadata": {
+        "description": "Tee junction on drain line from F-715A"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "connector-drain-tee-002",
+      "level": "connector",
+      "component_name": "connector",
+      "metadata": {
+        "description": "Tee junction on drain line from F-715B"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "connector-drain-merge-001",
+      "level": "connector",
+      "component_name": "connector",
+      "metadata": {
+        "description": "Junction where drain lines from A and B merge"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "connector-psv-header-001",
+      "level": "connector",
+      "component_name": "connector",
+      "metadata": {
+        "description": "Junction where PSV relief lines from A and B merge"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "connector-condensate-001",
+      "level": "connector",
+      "component_name": "connector",
+      "metadata": {
+        "description": "Junction on condensate line"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "offpage-from-slug-catcher",
+      "level": null,
+      "component_name": "off_page_endpoint",
+      "metadata": {
+        "destination": "FROM SLUG CATCHER V-710",
+        "pipe_id": "6\"-PL-2000-D"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "offpage-to-closed-drain-v005",
+      "level": null,
+      "component_name": "off_page_endpoint",
+      "metadata": {
+        "destination": "TO CLOSED DRAIN TANK V-005",
+        "pipe_id": "1\"-EV-6118-A"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "offpage-to-closed-drain-system",
+      "level": null,
+      "component_name": "off_page_endpoint",
+      "metadata": {
+        "destination": "TO CLOSED DRAIN SYSTEM D-0870",
+        "pipe_id": "1\"-DC-3000-D-(-HT)"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "offpage-to-surge-drum-v720",
+      "level": null,
+      "component_name": "off_page_endpoint",
+      "metadata": {
+        "destination": "TO SURGE DRUM V-720",
+        "pipe_id": "6\"-PL-2240-D"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "offpage-to-condensate-v730",
+      "level": null,
+      "component_name": "off_page_endpoint",
+      "metadata": {
+        "destination": "TO CONDENSATE 2 PHASE SEPARATOR V-730",
+        "pipe_id": "6\"-PL-2241-D"
+      },
+      "confidence": "high"
+    }
+  ],
+  "connections": [
+    {
+      "id_temp": "conn-001",
+      "line_type": "major_process",
+      "start_id": "offpage-from-slug-catcher",
+      "end_id": "valve-mv-715-01",
+      "pipeline": "pipeline-inlet-001",
+      "metadata": {
+        "pipe_id": "6\"-PL-2000-D",
+        "size_inches": 6
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-002",
+      "line_type": "major_process",
+      "start_id": "valve-mv-715-01",
+      "end_id": "connector-inlet-tee-001",
+      "pipeline": "pipeline-inlet-001",
+      "metadata": {
+        "pipe_id": "6\"-PL-2000-D",
+        "size_inches": 6
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-003",
+      "line_type": "major_process",
+      "start_id": "connector-inlet-tee-001",
+      "end_id": "valve-mv-715-02a",
+      "pipeline": "pipeline-inlet-a",
+      "metadata": {
+        "size_inches": 6
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-004",
+      "line_type": "major_process",
+      "start_id": "valve-mv-715-02a",
+      "end_id": "equip-f715a-visual",
+      "pipeline": "pipeline-inlet-a",
+      "metadata": {
+        "size_inches": 6
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-005",
+      "line_type": "major_process",
+      "start_id": "connector-inlet-tee-001",
+      "end_id": "valve-mv-715-02b",
+      "pipeline": "pipeline-inlet-b",
+      "metadata": {
+        "size_inches": 6
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-006",
+      "line_type": "major_process",
+      "start_id": "valve-mv-715-02b",
+      "end_id": "equip-f715b-visual",
+      "pipeline": "pipeline-inlet-b",
+      "metadata": {
+        "size_inches": 6
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-007",
+      "line_type": "major_process",
+      "start_id": "equip-f715a-visual",
+      "end_id": "valve-mv-715-03a",
+      "pipeline": "pipeline-outlet-a",
+      "metadata": {
+        "pipe_id": "6\"-D2R",
+        "size_inches": 6
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-008",
+      "line_type": "major_process",
+      "start_id": "valve-mv-715-03a",
+      "end_id": "connector-outlet-tee-001",
+      "pipeline": "pipeline-outlet-a",
+      "metadata": {
+        "pipe_id": "6\"-D2R",
+        "size_inches": 6
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-009",
+      "line_type": "major_process",
+      "start_id": "equip-f715b-visual",
+      "end_id": "valve-mv-715-03b",
+      "pipeline": "pipeline-outlet-b",
+      "metadata": {
+        "pipe_id": "6\"-D2R",
+        "size_inches": 6
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-010",
+      "line_type": "major_process",
+      "start_id": "valve-mv-715-03b",
+      "end_id": "connector-outlet-tee-001",
+      "pipeline": "pipeline-outlet-b",
+      "metadata": {
+        "pipe_id": "6\"-D2R",
+        "size_inches": 6
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-011",
+      "line_type": "major_process",
+      "start_id": "connector-outlet-tee-001",
+      "end_id": "valve-mv-720-01",
+      "pipeline": "pipeline-outlet-main",
+      "metadata": {
+        "pipe_id": "6\"-D2R",
+        "size_inches": 6
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-012",
+      "line_type": "major_process",
+      "start_id": "valve-mv-720-01",
+      "end_id": "offpage-to-surge-drum-v720",
+      "pipeline": "pipeline-outlet-main",
+      "metadata": {
+        "pipe_id": "6\"-PL-2240-D",
+        "size_inches": 6
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-013",
+      "line_type": "minor_process",
+      "start_id": "equip-f715a-visual",
+      "end_id": "inst-psv-715a",
+      "pipeline": "pipeline-psv-a",
+      "metadata": {
+        "size": "3/4\"x1\""
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-014",
+      "line_type": "minor_process",
+      "start_id": "inst-psv-715a",
+      "end_id": "connector-psv-header-001",
+      "pipeline": "pipeline-psv-a",
+      "metadata": {
+        "pipe_id": "1\"-D5S",
+        "size_inches": 1
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-015",
+      "line_type": "minor_process",
+      "start_id": "equip-f715b-visual",
+      "end_id": "inst-psv-715b",
+      "pipeline": "pipeline-psv-b",
+      "metadata": {
+        "size": "3/4\"x1\""
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-016",
+      "line_type": "minor_process",
+      "start_id": "inst-psv-715b",
+      "end_id": "connector-psv-header-001",
+      "pipeline": "pipeline-psv-b",
+      "metadata": {
+        "pipe_id": "1\"-D5S",
+        "size_inches": 1
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-017",
+      "line_type": "minor_process",
+      "start_id": "connector-psv-header-001",
+      "end_id": "valve-mv-715-11",
+      "pipeline": "pipeline-psv-relief",
+      "metadata": {
+        "pipe_id": "1\"-D2S",
+        "size_inches": 1
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-018",
+      "line_type": "minor_process",
+      "start_id": "valve-mv-715-11",
+      "end_id": "offpage-to-closed-drain-v005",
+      "pipeline": "pipeline-psv-relief",
+      "metadata": {
+        "pipe_id": "1\"-EV-6118-A",
+        "size_inches": 1
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-019",
+      "line_type": "minor_process",
+      "start_id": "equip-f715a-visual",
+      "end_id": "inst-pi-715a",
+      "pipeline": "pipeline-pi-a",
+      "metadata": {
+        "size": "1/2\"-D2S"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-020",
+      "line_type": "minor_process",
+      "start_id": "equip-f715b-visual",
+      "end_id": "inst-pi-715b",
+      "pipeline": "pipeline-pi-b",
+      "metadata": {
+        "size": "1/2\"-D2S"
+      },
+      "confidence": "high"
+    },
+    {
+      "id_temp": "conn-021",
+      "line_type": "minor_process",
+      "start_id": "equip-f715a-visual",
+      "end_id": "valve-mv-715-13a",
+      "pipeline": "pipeline-drain-a",
+      "metadata": {
+        "pipe_id": "1\"-D2S",
+        "size_inches": 1
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-022",
+      "line_type": "minor_process",
+      "start_id": "valve-mv-715-13a",
+      "end_id": "connector-drain-tee-001",
+      "pipeline": "pipeline-drain-a",
+      "metadata": {
+        "pipe_id": "1\"-D2S",
+        "size_inches": 1
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-023",
+      "line_type": "minor_process",
+      "start_id": "equip-f715b-visual",
+      "end_id": "valve-mv-715-13b",
+      "pipeline": "pipeline-drain-b",
+      "metadata": {
+        "pipe_id": "1\"-D2S",
+        "size_inches": 1
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-024",
+      "line_type": "minor_process",
+      "start_id": "valve-mv-715-13b",
+      "end_id": "connector-drain-tee-002",
+      "pipeline": "pipeline-drain-b",
+      "metadata": {
+        "pipe_id": "1\"-D2S",
+        "size_inches": 1
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-025",
+      "line_type": "minor_process",
+      "start_id": "connector-drain-tee-001",
+      "end_id": "connector-drain-merge-001",
+      "pipeline": "pipeline-drain-merge",
+      "metadata": {
+        "pipe_id": "1\"-D2S",
+        "size_inches": 1
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-026",
+      "line_type": "minor_process",
+      "start_id": "connector-drain-tee-002",
+      "end_id": "connector-drain-merge-001",
+      "pipeline": "pipeline-drain-merge",
+      "metadata": {
+        "pipe_id": "1\"-D2S",
+        "size_inches": 1
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-027",
+      "line_type": "minor_process",
+      "start_id": "connector-drain-merge-001",
+      "end_id": "offpage-to-closed-drain-system",
+      "pipeline": "pipeline-drain-main",
+      "metadata": {
+        "pipe_id": "1\"-DC-3000-D-(-HT)",
+        "size_inches": 1
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-028",
+      "line_type": "minor_process",
+      "start_id": "connector-condensate-001",
+      "end_id": "valve-mv-720-04",
+      "pipeline": "pipeline-condensate",
+      "metadata": {
+        "pipe_id": "1\"-D2S",
+        "size_inches": 1
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-029",
+      "line_type": "minor_process",
+      "start_id": "valve-mv-720-04",
+      "end_id": "offpage-to-condensate-v730",
+      "pipeline": "pipeline-condensate",
+      "metadata": {
+        "pipe_id": "6\"-PL-2241-D",
+        "size_inches": 6
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-030",
+      "line_type": "minor_process",
+      "start_id": "equip-f715a-visual",
+      "end_id": "inst-pdi-715a",
+      "pipeline": "pipeline-pdi-a",
+      "metadata": {},
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-031",
+      "line_type": "minor_process",
+      "start_id": "equip-f715b-visual",
+      "end_id": "inst-pdi-715b",
+      "pipeline": "pipeline-pdi-b",
+      "metadata": {},
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-032",
+      "line_type": "minor_process",
+      "start_id": "equip-f715a-visual",
+      "end_id": "inst-ti-715a",
+      "pipeline": "pipeline-ti-a",
+      "metadata": {},
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-033",
+      "line_type": "minor_process",
+      "start_id": "equip-f715b-visual",
+      "end_id": "inst-ti-715b",
+      "pipeline": "pipeline-ti-b",
+      "metadata": {},
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-034",
+      "line_type": "minor_process",
+      "start_id": "equip-f715a-visual",
+      "end_id": "valve-mv-715-10a",
+      "pipeline": "pipeline-vent-a",
+      "metadata": {
+        "pipe_id": "1/2\"-D2S"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-035",
+      "line_type": "minor_process",
+      "start_id": "equip-f715b-visual",
+      "end_id": "valve-mv-715-10b",
+      "pipeline": "pipeline-vent-b",
+      "metadata": {
+        "pipe_id": "1/2\"-D2S"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-036",
+      "line_type": "minor_process",
+      "start_id": "equip-f715a-visual",
+      "end_id": "valve-mv-715-12a",
+      "pipeline": "pipeline-sample-a",
+      "metadata": {
+        "pipe_id": "1/2\"-D2S"
+      },
+      "confidence": "medium"
+    },
+    {
+      "id_temp": "conn-037",
+      "line_type": "minor_process",
+      "start_id": "equip-f715b-visual",
+      "end_id": "valve-mv-715-12b",
+      "pipeline": "pipeline-sample-b",
+      "metadata": {
+        "pipe_id": "1/2\"-D2S"
+      },
+      "confidence": "medium"
+    }
+  ],
+  "uncertainties": "Several valve tags in the drain and vent lines were difficult to read due to small text size and overlapping instrument lines. The exact routing of some minor process lines between the two filter separators (F-715A and F-715B) was challenging to trace due to line density and crossing lines. Some instrument tags near the bottom of the filter vessels were partially obscured or had low contrast, resulting in medium/low confidence assignments."
+}

@@ -1,0 +1,572 @@
+{
+  "summary": "SUMMARY: nodes F1=1.00 | metadata acc=0.00 | connections topology F1=0.36 (exact F1=0.68 fuzzy F1=0.36)",
+  "node_detection": {
+    "equipment": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "hallucinated": [],
+      "missed": []
+    },
+    "instrument": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 6,
+      "fp": 0,
+      "fn": 0,
+      "hallucinated": [],
+      "missed": []
+    },
+    "valve": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 29,
+      "fp": 0,
+      "fn": 0,
+      "hallucinated": [],
+      "missed": []
+    },
+    "overall": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 37,
+      "fp": 0,
+      "fn": 0
+    }
+  },
+  "metadata_accuracy": {
+    "matched_equipment": [
+      "F-715A",
+      "F-715B"
+    ],
+    "overall_accuracy": 0.0,
+    "total_correct_fields": 0,
+    "total_fields": 16,
+    "per_node": {
+      "F-715A": {
+        "accuracy": 0.0,
+        "correct_fields": 0,
+        "total_fields": 8,
+        "wrong_fields": [
+          {
+            "field": "metadata_size",
+            "truth": "18'' O.D. x 42.5'' T/T",
+            "extracted": null
+          },
+          {
+            "field": "metadata_operating_pressure_psig",
+            "truth": 230,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_specs_pressure_psig",
+            "truth": 275,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_specs_temp_f",
+            "truth": 100,
+            "extracted": null
+          },
+          {
+            "field": "metadata_MDMT_pressure_psig",
+            "truth": 275,
+            "extracted": null
+          },
+          {
+            "field": "metadata_MDMT_temp_f",
+            "truth": 20,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_cap_gpm",
+            "truth": 180,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_cap_psid_clean",
+            "truth": 2.25,
+            "extracted": null
+          }
+        ]
+      },
+      "F-715B": {
+        "accuracy": 0.0,
+        "correct_fields": 0,
+        "total_fields": 8,
+        "wrong_fields": [
+          {
+            "field": "metadata_size",
+            "truth": "18'' O.D. x 42.5'' T/T",
+            "extracted": null
+          },
+          {
+            "field": "metadata_operating_pressure_psig",
+            "truth": 230,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_specs_pressure_psig",
+            "truth": 275,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_specs_temp_f",
+            "truth": 100,
+            "extracted": null
+          },
+          {
+            "field": "metadata_MDMT_pressure_psig",
+            "truth": 275,
+            "extracted": null
+          },
+          {
+            "field": "metadata_MDMT_temp_f",
+            "truth": 20,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_cap_gpm",
+            "truth": 180,
+            "extracted": null
+          },
+          {
+            "field": "metadata_design_cap_psid_clean",
+            "truth": 2.25,
+            "extracted": null
+          }
+        ]
+      }
+    }
+  },
+  "connections": {
+    "topology": {
+      "precision": 0.49056603773584906,
+      "recall": 0.28888888888888886,
+      "f1": 0.3636363636363636,
+      "tp": 26,
+      "fp": 27,
+      "fn": 64,
+      "missed": [
+        "DPI-715A -- MV-715-12A",
+        "DPI-715A -- MV-715-13A",
+        "DPI-715B -- MV-715-12B",
+        "DPI-715B -- MV-715-13B",
+        "F-715A -- MV-715-03A",
+        "F-715A -- MV-715-08A",
+        "F-715A -- MV-715-14A",
+        "F-715A -- MV-715-14B",
+        "F-715A -- MV-715-15A",
+        "F-715A -- MV-715-15B",
+        "F-715A -- TO_CLOSED_DRAIN_SYSTEM_10-0610",
+        "F-715B -- MV-715-03B",
+        "F-715B -- MV-715-04B",
+        "F-715B -- MV-715-06A",
+        "F-715B -- MV-715-07",
+        "F-715B -- MV-715-08B",
+        "F-715B -- MV-715-14B",
+        "F-715B -- MV-715-15B",
+        "F-715B -- MV-720-01",
+        "F-715B -- MV-720-04",
+        "FROM_SLUG_CATCHER_V-710 -- MV-715-01",
+        "FROM_SLUG_CATCHER_V-710 -- MV-715-02",
+        "MV-715-01 -- MV-715-02",
+        "MV-715-01 -- MV-715-02A",
+        "MV-715-01 -- MV-715-02B",
+        "MV-715-02 -- MV-715-02A",
+        "MV-715-02 -- MV-715-02B",
+        "MV-715-02A -- MV-715-03A",
+        "MV-715-02B -- MV-715-03B",
+        "MV-715-03B -- PI-715B",
+        "MV-715-04B -- MV-715-05B",
+        "MV-715-04B -- MV-715-06A",
+        "MV-715-04B -- MV-715-06B",
+        "MV-715-04B -- MV-715-07",
+        "MV-715-04B -- MV-720-01",
+        "MV-715-04B -- MV-720-04",
+        "MV-715-05A -- MV-715-14A",
+        "MV-715-05B -- MV-715-06A",
+        "MV-715-05B -- MV-715-07",
+        "MV-715-05B -- MV-720-01",
+        "MV-715-06A -- MV-715-14A",
+        "MV-715-06A -- MV-720-01",
+        "MV-715-06A -- MV-720-04",
+        "MV-715-06B -- MV-720-01",
+        "MV-715-06B -- MV-720-04",
+        "MV-715-07 -- MV-720-04",
+        "MV-715-08A -- MV-715-09A",
+        "MV-715-08A -- MV-715-10A",
+        "MV-715-08A -- PSV-715A",
+        "MV-715-08B -- MV-715-09B",
+        "MV-715-08B -- PSV-715B",
+        "MV-715-09A -- MV-715-10A",
+        "MV-715-09A -- PSV-715A",
+        "MV-715-09B -- PSV-715B",
+        "MV-715-10A -- MV-715-10B",
+        "MV-715-10A -- MV-715-11",
+        "MV-715-10B -- MV-715-11",
+        "MV-715-14A -- PI-715A",
+        "MV-715-14B -- MV-715-15A",
+        "MV-715-14B -- MV-715-15B",
+        "MV-715-15A -- MV-715-15B",
+        "MV-715-15A -- TO_CLOSED_DRAIN_SYSTEM_10-0610",
+        "MV-715-15B -- TO_CLOSED_DRAIN_SYSTEM_10-0610",
+        "MV-720-01 -- MV-720-04"
+      ],
+      "hallucinated": [
+        "DPI-715A -- F-715A",
+        "DPI-715B -- F-715B",
+        "F-715A -- MV-715-10A",
+        "F-715A -- PI-715A",
+        "F-715A -- PSV-715A",
+        "F-715B -- MV-715-10B",
+        "F-715B -- PI-715B",
+        "F-715B -- PSV-715B",
+        "MV-715-01 -- MV-715-03A",
+        "MV-715-01 -- MV-715-11",
+        "MV-715-01 -- MV-720-01",
+        "MV-715-02A -- MV-715-10A",
+        "MV-715-02A -- PSV-715A",
+        "MV-715-02B -- MV-715-10B",
+        "MV-715-02B -- PSV-715B",
+        "MV-715-03A -- MV-715-08A",
+        "MV-715-03A -- MV-715-11",
+        "MV-715-03B -- MV-715-04B",
+        "MV-715-03B -- MV-715-08B",
+        "MV-715-04B -- MV-715-08B",
+        "MV-715-05A -- MV-715-05B",
+        "MV-715-05A -- MV-720-04",
+        "MV-715-07 -- TO_SURGE_DRUM_V-720",
+        "MV-715-09A -- MV-715-15A",
+        "MV-715-09B -- MV-715-15B",
+        "MV-715-14A -- MV-715-14B",
+        "MV-715-14A -- TO_CLOSED_DRAIN_SYSTEM_10-0610"
+      ]
+    },
+    "exact": {
+      "precision": 0.7592592592592593,
+      "recall": 0.6212121212121212,
+      "f1": 0.6833333333333333,
+      "tp": 41,
+      "fp": 13,
+      "fn": 25,
+      "missed": [
+        {
+          "start": "F-715A",
+          "end": "MV-715-08A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-15B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-12B",
+          "end": "DPI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "DPI-715A",
+          "end": "MV-715-13A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-03B",
+          "end": "PI-715B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-720-01",
+          "end": "TO_SURGE_DRUM_V-720",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-10B",
+          "end": "j60",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-14B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-13B",
+          "end": "DPI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j2",
+          "end": "MV-715-02",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j6",
+          "end": "j7",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j8",
+          "end": "j10",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j10",
+          "end": "j9",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j11",
+          "end": "j12",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j13",
+          "end": "j12",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j15",
+          "end": "j14",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j14",
+          "end": "j8",
+          "line_type": "major_process"
+        },
+        {
+          "start": "PSV-715B",
+          "end": "MV-715-10B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-14A",
+          "end": "PI-715A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-15A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "j11",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j60",
+          "end": "MV-715-11",
+          "line_type": "major_process"
+        },
+        {
+          "start": "DPI-715A",
+          "end": "MV-715-12A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-10A",
+          "end": "j60",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-08B",
+          "line_type": "major_process"
+        }
+      ],
+      "hallucinated": [
+        {
+          "start": "MV-715-07",
+          "end": "j9",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j5",
+          "end": "MV-715-10B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j9",
+          "end": "TO_SURGE_DRUM_V-720",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-720-01",
+          "end": "MV-715-01",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "DPI-715A",
+          "line_type": "signal"
+        },
+        {
+          "start": "MV-715-05B",
+          "end": "j11",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "PI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "PI-715A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-05A",
+          "end": "j11",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "DPI-715B",
+          "line_type": "signal"
+        },
+        {
+          "start": "j10",
+          "end": "MV-715-03A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j10",
+          "end": "MV-715-11",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-06B",
+          "end": "j8",
+          "line_type": "major_process"
+        }
+      ]
+    },
+    "fuzzy": {
+      "precision": 0.5454545454545454,
+      "recall": 0.2727272727272727,
+      "f1": 0.3636363636363636,
+      "tp": 6,
+      "fp": 5,
+      "fn": 16,
+      "missed": [
+        {
+          "start": "F-715A",
+          "end": "MV-715-08A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-15B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "PSV-715B",
+          "end": "MV-715-10B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-10B",
+          "end": "j60",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-12B",
+          "end": "DPI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "DPI-715A",
+          "end": "MV-715-13A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-14B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-13B",
+          "end": "DPI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-14A",
+          "end": "PI-715A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-03B",
+          "end": "PI-715B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-15A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j60",
+          "end": "MV-715-11",
+          "line_type": "major_process"
+        },
+        {
+          "start": "DPI-715A",
+          "end": "MV-715-12A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-10A",
+          "end": "j60",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-720-01",
+          "end": "TO_SURGE_DRUM_V-720",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-08B",
+          "line_type": "major_process"
+        }
+      ],
+      "hallucinated": [
+        {
+          "start": "F-715B",
+          "end": "DPI-715B",
+          "line_type": "signal"
+        },
+        {
+          "start": "F-715B",
+          "end": "PI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-720-01",
+          "end": "MV-715-01",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "PI-715A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "DPI-715A",
+          "line_type": "signal"
+        }
+      ]
+    }
+  }
+}

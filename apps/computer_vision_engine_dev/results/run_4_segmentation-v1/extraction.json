@@ -1,0 +1,721 @@
+{
+  "nodes": [
+    {
+      "component_name": "F-715B",
+      "level": "equipment",
+      "confidence": "high"
+    },
+    {
+      "component_name": "PSV-715A",
+      "level": "instrument",
+      "confidence": "high",
+      "metadata_inlet_size": "3/4",
+      "metadata_outlet_size": "1",
+      "metadata_set_pressure_psig": 275
+    },
+    {
+      "component_name": "PSV-715B",
+      "level": "instrument",
+      "confidence": "high",
+      "metadata_inlet_size": "3/4",
+      "metadata_outlet_size": "1",
+      "metadata_set_pressure_psig": 275
+    },
+    {
+      "component_name": "PI-715A",
+      "level": "instrument",
+      "confidence": "high"
+    },
+    {
+      "component_name": "PI-715B",
+      "level": "instrument",
+      "confidence": "high"
+    },
+    {
+      "component_name": "DPI-715B",
+      "level": "instrument",
+      "confidence": "high"
+    },
+    {
+      "component_name": "MV-715-D2",
+      "level": "valve",
+      "confidence": "medium",
+      "metadata_nominal_pipe_size": "1\"-D2S"
+    },
+    {
+      "component_name": "MV-715-01",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "6\"-D2R"
+    },
+    {
+      "component_name": "MV-715-10A",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1\"-D2S"
+    },
+    {
+      "component_name": "MV-715-10B",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1\"-D2S"
+    },
+    {
+      "component_name": "MV-715-08A",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1/2\"-D2S",
+      "metadata_lock_position": "L.O."
+    },
+    {
+      "component_name": "MV-715-08B",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1/2\"-D2S",
+      "metadata_lock_position": "L.O."
+    },
+    {
+      "component_name": "MV-715-09A",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1/2\"-D2S"
+    },
+    {
+      "component_name": "MV-715-09B",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1/2\"-D2S"
+    },
+    {
+      "component_name": "MV-715-03A",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1\"-D2S"
+    },
+    {
+      "component_name": "MV-715-03B",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1\"-D2S"
+    },
+    {
+      "component_name": "MV-715-02A",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "6\"-D2R"
+    },
+    {
+      "component_name": "MV-715-02B",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "6\"-D2R"
+    },
+    {
+      "component_name": "MV-715-05A",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1\"-D2S"
+    },
+    {
+      "component_name": "MV-715-06A",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "6\"-D2R"
+    },
+    {
+      "component_name": "MV-715-06B",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "6\"-D2R"
+    },
+    {
+      "component_name": "MV-715-04B",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1\"-D2S"
+    },
+    {
+      "component_name": "MV-715-12B",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1/2\"-D2S"
+    },
+    {
+      "component_name": "MV-715-13B",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1/2\"-D2S"
+    },
+    {
+      "component_name": "MV-715-14A",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1\"-D2S"
+    },
+    {
+      "component_name": "MV-715-14B",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1\"-D2S"
+    },
+    {
+      "component_name": "MV-715-15A",
+      "level": "valve",
+      "confidence": "medium",
+      "metadata_nominal_pipe_size": "1\"-D2S"
+    },
+    {
+      "component_name": "MV-715-15B",
+      "level": "valve",
+      "confidence": "medium",
+      "metadata_nominal_pipe_size": "1\"-D2S"
+    },
+    {
+      "component_name": "j1",
+      "level": "junction",
+      "confidence": "high",
+      "metadata_description": "3-way junction at top header connecting to MV-715-D2 and MV-715-01"
+    },
+    {
+      "component_name": "j2",
+      "level": "junction",
+      "confidence": "high",
+      "metadata_description": "Junction at PSV-715A branch on left side"
+    },
+    {
+      "component_name": "j3",
+      "level": "junction",
+      "confidence": "high",
+      "metadata_description": "Junction at PSV-715B branch on right side"
+    },
+    {
+      "component_name": "j4",
+      "level": "junction",
+      "confidence": "high",
+      "metadata_description": "Junction connecting tubing line to left filter branch"
+    },
+    {
+      "component_name": "j5",
+      "level": "junction",
+      "confidence": "high",
+      "metadata_description": "Junction at middle header connecting MV-715-02A and MV-715-02B"
+    },
+    {
+      "component_name": "j6",
+      "level": "junction",
+      "confidence": "high",
+      "metadata_description": "Junction connecting PI-715B branch"
+    },
+    {
+      "component_name": "j7",
+      "level": "junction",
+      "confidence": "high",
+      "metadata_description": "Junction at lower header connecting MV-715-06A and MV-715-06B"
+    },
+    {
+      "component_name": "j8",
+      "level": "junction",
+      "confidence": "high",
+      "metadata_description": "Junction connecting PI-715A branch on left"
+    },
+    {
+      "component_name": "j9",
+      "level": "junction",
+      "confidence": "high",
+      "metadata_description": "Junction at bottom drain line A side"
+    },
+    {
+      "component_name": "j10",
+      "level": "junction",
+      "confidence": "high",
+      "metadata_description": "Junction at bottom drain line B side"
+    },
+    {
+      "component_name": "j11",
+      "level": "junction",
+      "confidence": "high",
+      "metadata_description": "Junction where drain lines A and B merge"
+    },
+    {
+      "component_name": "j12",
+      "level": "junction",
+      "confidence": "high",
+      "metadata_description": "Junction at F-715B inlet connecting to DPI-715B"
+    },
+    {
+      "component_name": "j13",
+      "level": "junction",
+      "confidence": "high",
+      "metadata_description": "Junction at F-715B outlet connecting to DPI-715B"
+    },
+    {
+      "component_name": "F-715A",
+      "level": "equipment",
+      "confidence": "high"
+    },
+    {
+      "component_name": "DPI-715A",
+      "level": "instrument",
+      "confidence": "high"
+    },
+    {
+      "component_name": "MV-715-06B-1",
+      "level": "valve",
+      "confidence": "medium",
+      "metadata_nominal_pipe_size": "1\"-D2S"
+    },
+    {
+      "component_name": "MV-715-07",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1\"-D2S"
+    },
+    {
+      "component_name": "MV-715-12A",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1/2\"-D2S"
+    },
+    {
+      "component_name": "MV-715-13A",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1/2\"-D2S"
+    },
+    {
+      "component_name": "TO-CLOSED-DRAIN-SYSTEM-10-0610",
+      "level": "out_of_system",
+      "confidence": "high"
+    },
+    {
+      "component_name": "FROM-SLUG-CATCHER-V-710",
+      "level": "out_of_system",
+      "confidence": "high",
+      "metadata_pipe_id": "6''-PL-2000-D",
+      "metadata_reference": "0110"
+    },
+    {
+      "component_name": "MV-715-11",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "1\"",
+      "metadata_spec": "D2S",
+      "metadata_fail_position": "L.O."
+    },
+    {
+      "component_name": "MV-720-01",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "6\"",
+      "metadata_spec": "D2R"
+    },
+    {
+      "component_name": "MV-720-D4",
+      "level": "valve",
+      "confidence": "high",
+      "metadata_nominal_pipe_size": "6\"",
+      "metadata_spec": "D2R",
+      "metadata_fail_position": "N.C."
+    },
+    {
+      "component_name": "TO_CLOSED_DRAIN_TANK_V-OD5",
+      "level": "out_of_system",
+      "confidence": "high",
+      "metadata_line_number": "1\"-RV-6119-A"
+    },
+    {
+      "component_name": "TO_SURGE_DRUM_V-720",
+      "level": "out_of_system",
+      "confidence": "high",
+      "metadata_line_number": "6\"-PL-2240-D"
+    },
+    {
+      "component_name": "TO_CONDENSATE_2_PHASE_SEPARATOR_V-73D",
+      "level": "out_of_system",
+      "confidence": "high",
+      "metadata_line_number": "6\"-PL-2241-D"
+    }
+  ],
+  "connections": [
+    {
+      "start_id": "j1",
+      "end_id": "MV-715-D2",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "j1",
+      "end_id": "MV-715-01",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "j2",
+      "end_id": "MV-715-10A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-10A",
+      "end_id": "PSV-715A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j3",
+      "end_id": "MV-715-10B",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-10B",
+      "end_id": "PSV-715B",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j2",
+      "end_id": "MV-715-09A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j2",
+      "end_id": "MV-715-08A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j3",
+      "end_id": "MV-715-09B",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j3",
+      "end_id": "MV-715-08B",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j4",
+      "end_id": "MV-715-03A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j4",
+      "end_id": "MV-715-02A",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "MV-715-02A",
+      "end_id": "j5",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "j5",
+      "end_id": "MV-715-02B",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "MV-715-02B",
+      "end_id": "j6",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "j6",
+      "end_id": "MV-715-03B",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-03B",
+      "end_id": "PI-715B",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j6",
+      "end_id": "F-715B",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "j8",
+      "end_id": "MV-715-05A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-05A",
+      "end_id": "PI-715A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j8",
+      "end_id": "MV-715-06A",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "MV-715-06A",
+      "end_id": "j7",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "j7",
+      "end_id": "MV-715-06B",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "MV-715-06B",
+      "end_id": "j12",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "j12",
+      "end_id": "MV-715-12B",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-12B",
+      "end_id": "DPI-715B",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j13",
+      "end_id": "MV-715-13B",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-13B",
+      "end_id": "DPI-715B",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j9",
+      "end_id": "MV-715-14A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-14A",
+      "end_id": "j11",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j10",
+      "end_id": "MV-715-14B",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-14B",
+      "end_id": "j11",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j9",
+      "end_id": "MV-715-15A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j10",
+      "end_id": "MV-715-15B",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-01",
+      "end_id": "j1",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "j1",
+      "end_id": "j2",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "j2",
+      "end_id": "MV-715-02A",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "MV-715-02A",
+      "end_id": "F-715A",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "MV-715-02B",
+      "end_id": "j4",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "F-715A",
+      "end_id": "MV-715-02B",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "F-715A",
+      "end_id": "j3",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "j3",
+      "end_id": "MV-715-06A",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "MV-715-06A",
+      "end_id": "MV-715-06B",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "MV-715-06B",
+      "end_id": "j4",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "j1",
+      "end_id": "MV-715-09A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-09A",
+      "end_id": "MV-715-08A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-08A",
+      "end_id": "PSV-715A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "PSV-715A",
+      "end_id": "MV-715-10A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j2",
+      "end_id": "MV-715-03A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-03A",
+      "end_id": "PI-715B",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "PI-715B",
+      "end_id": "MV-715-03B",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-03B",
+      "end_id": "j4",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "F-715A",
+      "end_id": "MV-715-12A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "F-715A",
+      "end_id": "PI-715A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "PI-715A",
+      "end_id": "MV-715-14A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-05A",
+      "end_id": "PI-715A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j3",
+      "end_id": "MV-715-13A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-13A",
+      "end_id": "DPI-715A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "DPI-715A",
+      "end_id": "MV-715-15A",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-15A",
+      "end_id": "j5",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-14A",
+      "end_id": "j5",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j5",
+      "end_id": "MV-715-07",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-07",
+      "end_id": "TO-CLOSED-DRAIN-SYSTEM-10-0610",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j4",
+      "end_id": "MV-715-04B",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-06B-1",
+      "end_id": "j4",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "FROM-SLUG-CATCHER-V-710",
+      "end_id": "j3",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "j3",
+      "end_id": "6''-B.F.II",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "j1",
+      "end_id": "MV-715-11",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-11",
+      "end_id": "TO_CLOSED_DRAIN_TANK_V-OD5",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "MV-715-10B",
+      "end_id": "j1",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j1",
+      "end_id": "j2",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j2",
+      "end_id": "MV-720-01",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "MV-720-01",
+      "end_id": "TO_SURGE_DRUM_V-720",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "j2",
+      "end_id": "j3",
+      "line_type": "minor_process"
+    },
+    {
+      "start_id": "j3",
+      "end_id": "MV-720-D4",
+      "line_type": "major_process"
+    },
+    {
+      "start_id": "MV-720-D4",
+      "end_id": "TO_CONDENSATE_2_PHASE_SEPARATOR_V-73D",
+      "line_type": "major_process"
+    }
+  ]
+}

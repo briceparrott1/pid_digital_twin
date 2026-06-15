@@ -1,0 +1,12 @@
+{
+  "description": "2-pass-v3",
+  "page": 1,
+  "model": "claude-opus-4-5",
+  "segments": 5,
+  "total_nodes": 58,
+  "total_connections": 59,
+  "junctions_created": 16,
+  "lines_detected": 191,
+  "timestamp": "2026-06-15T03:47:13.479382+00:00",
+  "run_number": 14
+}

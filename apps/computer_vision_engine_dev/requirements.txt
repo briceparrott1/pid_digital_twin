@@ -1,0 +1,8 @@
+anthropic==0.109.1
+pymupdf==1.27.2.3
+pydantic-settings==2.5.2
+python-dotenv==1.0.1
+networkx==3.4.2
+matplotlib==3.10.0
+opencv-python-headless
+scikit-learn

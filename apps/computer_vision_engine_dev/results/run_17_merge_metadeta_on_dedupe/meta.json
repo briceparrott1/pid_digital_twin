@@ -1,0 +1,12 @@
+{
+  "description": "merge metadeta on dedupe",
+  "page": 1,
+  "model": "claude-opus-4-5",
+  "segments": 5,
+  "total_nodes": 55,
+  "total_connections": 55,
+  "junctions_created": 14,
+  "lines_detected": 191,
+  "timestamp": "2026-06-15T15:26:28.435685+00:00",
+  "run_number": 17
+}

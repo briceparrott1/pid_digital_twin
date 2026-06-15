@@ -1,0 +1,661 @@
+{
+  "summary": "SUMMARY: nodes F1=1.00 | metadata acc=0.62 | connections topology F1=0.42 (exact F1=0.49 fuzzy F1=0.28)",
+  "node_detection": {
+    "equipment": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "hallucinated": [],
+      "missed": []
+    },
+    "instrument": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 6,
+      "fp": 0,
+      "fn": 0,
+      "hallucinated": [],
+      "missed": []
+    },
+    "valve": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 29,
+      "fp": 0,
+      "fn": 0,
+      "hallucinated": [],
+      "missed": []
+    },
+    "overall": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "tp": 37,
+      "fp": 0,
+      "fn": 0
+    }
+  },
+  "metadata_accuracy": {
+    "matched_equipment": [
+      "F-715A",
+      "F-715B"
+    ],
+    "overall_accuracy": 0.625,
+    "total_correct_fields": 10,
+    "total_fields": 16,
+    "per_node": {
+      "F-715A": {
+        "accuracy": 0.625,
+        "correct_fields": 5,
+        "total_fields": 8,
+        "wrong_fields": [
+          {
+            "field": "metadata_size",
+            "truth": "18'' O.D. x 42.5'' T/T",
+            "extracted": "18\" O.D. x 42.5\" T/T"
+          },
+          {
+            "field": "metadata_operating_pressure_psig",
+            "truth": 230,
+            "extracted": 250
+          },
+          {
+            "field": "metadata_MDMT_temp_f",
+            "truth": 20,
+            "extracted": -20
+          }
+        ]
+      },
+      "F-715B": {
+        "accuracy": 0.625,
+        "correct_fields": 5,
+        "total_fields": 8,
+        "wrong_fields": [
+          {
+            "field": "metadata_size",
+            "truth": "18'' O.D. x 42.5'' T/T",
+            "extracted": "18\" O.D. x 42.5\" T/T"
+          },
+          {
+            "field": "metadata_operating_pressure_psig",
+            "truth": 230,
+            "extracted": 250
+          },
+          {
+            "field": "metadata_MDMT_temp_f",
+            "truth": 20,
+            "extracted": -20
+          }
+        ]
+      }
+    }
+  },
+  "connections": {
+    "topology": {
+      "precision": 0.543859649122807,
+      "recall": 0.34444444444444444,
+      "f1": 0.4217687074829932,
+      "tp": 31,
+      "fp": 26,
+      "fn": 59,
+      "missed": [
+        "DPI-715A -- MV-715-12A",
+        "DPI-715A -- MV-715-13A",
+        "DPI-715B -- MV-715-12B",
+        "DPI-715B -- MV-715-13B",
+        "F-715A -- MV-715-08A",
+        "F-715A -- MV-715-14B",
+        "F-715A -- MV-715-15B",
+        "F-715A -- TO_CLOSED_DRAIN_SYSTEM_10-0610",
+        "F-715B -- MV-715-06A",
+        "F-715B -- MV-715-07",
+        "F-715B -- MV-715-08B",
+        "F-715B -- MV-720-01",
+        "F-715B -- MV-720-04",
+        "FROM_SLUG_CATCHER_V-710 -- MV-715-01",
+        "FROM_SLUG_CATCHER_V-710 -- MV-715-02",
+        "MV-715-01 -- MV-715-02",
+        "MV-715-01 -- MV-715-02A",
+        "MV-715-01 -- MV-715-02B",
+        "MV-715-02 -- MV-715-02A",
+        "MV-715-02 -- MV-715-02B",
+        "MV-715-02A -- MV-715-03A",
+        "MV-715-02B -- MV-715-03B",
+        "MV-715-03B -- PI-715B",
+        "MV-715-04B -- MV-715-05B",
+        "MV-715-04B -- MV-715-06A",
+        "MV-715-04B -- MV-715-06B",
+        "MV-715-04B -- MV-715-07",
+        "MV-715-04B -- MV-720-01",
+        "MV-715-04B -- MV-720-04",
+        "MV-715-05A -- MV-715-14A",
+        "MV-715-05B -- MV-715-06A",
+        "MV-715-05B -- MV-715-07",
+        "MV-715-05B -- MV-720-01",
+        "MV-715-05B -- MV-720-04",
+        "MV-715-06A -- MV-715-06B",
+        "MV-715-06A -- MV-715-07",
+        "MV-715-06A -- MV-715-14A",
+        "MV-715-06A -- MV-720-01",
+        "MV-715-06A -- MV-720-04",
+        "MV-715-06B -- MV-715-07",
+        "MV-715-06B -- MV-720-01",
+        "MV-715-06B -- MV-720-04",
+        "MV-715-07 -- MV-720-01",
+        "MV-715-08A -- MV-715-10A",
+        "MV-715-08A -- PSV-715A",
+        "MV-715-08B -- PSV-715B",
+        "MV-715-09A -- MV-715-10A",
+        "MV-715-09A -- PSV-715A",
+        "MV-715-09B -- PSV-715B",
+        "MV-715-10A -- MV-715-10B",
+        "MV-715-10A -- MV-715-11",
+        "MV-715-10B -- MV-715-11",
+        "MV-715-14A -- PI-715A",
+        "MV-715-14B -- MV-715-15A",
+        "MV-715-14B -- MV-715-15B",
+        "MV-715-15A -- MV-715-15B",
+        "MV-715-15A -- TO_CLOSED_DRAIN_SYSTEM_10-0610",
+        "MV-715-15B -- TO_CLOSED_DRAIN_SYSTEM_10-0610",
+        "MV-720-01 -- MV-720-04"
+      ],
+      "hallucinated": [
+        "DPI-715A -- F-715A",
+        "DPI-715B -- F-715B",
+        "F-715A -- MV-715-01",
+        "F-715A -- MV-715-10A",
+        "F-715A -- PSV-715A",
+        "F-715B -- MV-715-01",
+        "F-715B -- MV-715-10B",
+        "F-715B -- PSV-715B",
+        "MV-715-01 -- MV-715-03A",
+        "MV-715-01 -- MV-715-03B",
+        "MV-715-01 -- MV-720-01",
+        "MV-715-02A -- MV-715-14A",
+        "MV-715-02B -- MV-715-14B",
+        "MV-715-03A -- MV-715-03B",
+        "MV-715-03A -- MV-715-07",
+        "MV-715-03A -- MV-720-04",
+        "MV-715-03B -- MV-715-07",
+        "MV-715-03B -- MV-720-04",
+        "MV-715-10A -- PI-715A",
+        "MV-715-10B -- PI-715B",
+        "MV-715-11 -- PSV-715A",
+        "MV-715-11 -- PSV-715B",
+        "MV-715-12A -- MV-715-13A",
+        "MV-715-12B -- MV-715-13B",
+        "MV-715-14A -- MV-715-14B",
+        "MV-715-14A -- TO_CLOSED_DRAIN_SYSTEM_10-0610"
+      ]
+    },
+    "exact": {
+      "precision": 0.5357142857142857,
+      "recall": 0.45454545454545453,
+      "f1": 0.49180327868852464,
+      "tp": 30,
+      "fp": 26,
+      "fn": 36,
+      "missed": [
+        {
+          "start": "j18",
+          "end": "MV-715-09B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-08B",
+          "end": "j18",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-12A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j5",
+          "end": "MV-715-09A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-13B",
+          "end": "DPI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-13B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-12B",
+          "end": "DPI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-12B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j60",
+          "end": "MV-715-11",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j2",
+          "end": "MV-715-02",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-06A",
+          "end": "j8",
+          "line_type": "major_process"
+        },
+        {
+          "start": "PSV-715B",
+          "end": "MV-715-10B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-14B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-03B",
+          "end": "PI-715B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-14A",
+          "end": "PI-715A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j1",
+          "end": "j2",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j2",
+          "end": "j3",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j6",
+          "end": "j7",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j8",
+          "end": "j10",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j10",
+          "end": "j9",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j11",
+          "end": "j12",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j13",
+          "end": "j12",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j15",
+          "end": "j14",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j14",
+          "end": "j8",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-15A",
+          "end": "j12",
+          "line_type": "major_process"
+        },
+        {
+          "start": "DPI-715A",
+          "end": "MV-715-12A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-15B",
+          "end": "j13",
+          "line_type": "major_process"
+        },
+        {
+          "start": "DPI-715A",
+          "end": "MV-715-13A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-08A",
+          "end": "j5",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-10A",
+          "end": "j60",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-08B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-08A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-13A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j15",
+          "end": "MV-715-04B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-10B",
+          "end": "j60",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j9",
+          "end": "MV-720-01",
+          "line_type": "major_process"
+        }
+      ],
+      "hallucinated": [
+        {
+          "start": "j8",
+          "end": "MV-715-12A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j9",
+          "end": "MV-715-12B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "j9",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "j11",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "j14",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-10B",
+          "end": "PI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j7",
+          "end": "MV-715-14B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j12",
+          "end": "MV-715-11",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "DPI-715B",
+          "line_type": "signal"
+        },
+        {
+          "start": "PSV-715B",
+          "end": "j12",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j11",
+          "end": "MV-715-10B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-10A",
+          "end": "PI-715A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-03A",
+          "end": "j6",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "DPI-715A",
+          "line_type": "signal"
+        },
+        {
+          "start": "j6",
+          "end": "MV-715-03B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-08B",
+          "end": "MV-715-09B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-08A",
+          "end": "MV-715-09A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "j10",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "j13",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j9",
+          "end": "MV-715-13B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j5",
+          "end": "MV-715-01",
+          "line_type": "major_process"
+        },
+        {
+          "start": "j8",
+          "end": "MV-715-13A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-01",
+          "end": "MV-720-01",
+          "line_type": "major_process"
+        },
+        {
+          "start": "PSV-715A",
+          "end": "MV-715-11",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-04B",
+          "end": "F-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-14A",
+          "end": "j7",
+          "line_type": "minor_process"
+        }
+      ]
+    },
+    "fuzzy": {
+      "precision": 0.35714285714285715,
+      "recall": 0.22727272727272727,
+      "f1": 0.2777777777777778,
+      "tp": 5,
+      "fp": 9,
+      "fn": 17,
+      "missed": [
+        {
+          "start": "DPI-715A",
+          "end": "MV-715-13A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-10B",
+          "end": "j60",
+          "line_type": "major_process"
+        },
+        {
+          "start": "PSV-715B",
+          "end": "MV-715-10B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-14B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-12A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-13B",
+          "end": "DPI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-03B",
+          "end": "PI-715B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-13B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-10A",
+          "end": "j60",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-08B",
+          "line_type": "major_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-08A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-14A",
+          "end": "PI-715A",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-12B",
+          "end": "DPI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "MV-715-13A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "MV-715-12B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "DPI-715A",
+          "end": "MV-715-12A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "j60",
+          "end": "MV-715-11",
+          "line_type": "major_process"
+        }
+      ],
+      "hallucinated": [
+        {
+          "start": "MV-715-10A",
+          "end": "PI-715A",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715A",
+          "end": "DPI-715A",
+          "line_type": "signal"
+        },
+        {
+          "start": "MV-715-01",
+          "end": "MV-720-01",
+          "line_type": "major_process"
+        },
+        {
+          "start": "MV-715-10B",
+          "end": "PI-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "PSV-715A",
+          "end": "MV-715-11",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-04B",
+          "end": "F-715B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "F-715B",
+          "end": "DPI-715B",
+          "line_type": "signal"
+        },
+        {
+          "start": "MV-715-08B",
+          "end": "MV-715-09B",
+          "line_type": "minor_process"
+        },
+        {
+          "start": "MV-715-08A",
+          "end": "MV-715-09A",
+          "line_type": "minor_process"
+        }
+      ]
+    }
+  }
+}
