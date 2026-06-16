@@ -70,19 +70,13 @@ def write_extraction(job_id: str, extraction: dict):
             from_id = id_map.get((connection["page"], connection["start_id"]))
             to_id = id_map.get((connection["page"], connection["end_id"]))
             if from_id is None or to_id is None:
-                logger.warning(
-                    "skipping connection — unresolved start_id=%r or end_id=%r on page %r",
-                    connection["start_id"],
-                    connection["end_id"],
-                    connection["page"],
-                )
                 continue
 
             properties = _flatten_properties(connection, _CONNECTION_EXCLUDED_KEYS)
             session.run(
                 """
-                MATCH (a), (b)
-                WHERE elementId(a) = $from_id AND elementId(b) = $to_id
+                MATCH (a) WHERE elementId(a) = $from_id
+                MATCH (b) WHERE elementId(b) = $to_id
                 CREATE (a)-[r:CONNECTED_TO]->(b)
                 SET r += $properties
                 SET r.job_id = $job_id

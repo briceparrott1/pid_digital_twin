@@ -81,7 +81,4 @@ async def extract_page(image: bytes, prompt: str, model: str | None = None) -> d
     )
 
     result = _parse_response(response)
-    if uncertainties := result.get("uncertainties"):
-        logger.warning("Claude extraction uncertainties: %s", uncertainties)
-
     return result

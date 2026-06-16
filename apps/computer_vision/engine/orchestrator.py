@@ -84,23 +84,16 @@ async def run_algo(image: bytes) -> dict:
                     settings.model,
                 )
             )
-        except Exception as e:
-            logger.warning("equipment metadata pass failed, skipping: %s", e)
+        except Exception:
+            pass
 
-        empty_specs = []
         for name, specs in (meta_result.get("equipment") or {}).items():
             if name not in all_nodes:
                 continue
             if specs:
                 _merge_node(all_nodes[name], flatten_metadata(specs))
                 equipment_specs_found += 1
-            else:
-                empty_specs.append(name)
-        if empty_specs:
-            logger.warning(
-                "equipment nodes with no metadata found: %s",
-                ", ".join(sorted(empty_specs)),
-            )
+
 
     resolved = {
         "nodes": list(all_nodes.values()),

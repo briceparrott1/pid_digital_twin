@@ -14,3 +14,4 @@ def configure_logging() -> None:
         logging.getLogger("httpx").setLevel(logging.WARNING)
         logging.getLogger("httpcore").setLevel(logging.WARNING)
         logging.getLogger("anthropic").setLevel(logging.WARNING)
+        logging.getLogger("neo4j.notifications").setLevel(logging.WARNING)

@@ -25,7 +25,7 @@ Click start job in the frontend and choose a test case. It kicks off the pipelin
 
 Each selectable test case corresponds to one of the SOP documents in `computer_vision/data/sop/`. The expected violations for each case, meaning the ground truth of what the agent should flag, live in `/apps/computer_vision/data/sop/sop_truth/`. You can compare the generated report against the expected result for the case you ran.
 
-The longest run I experienced was 4.5 minutes and $1.30 in tokens. This seemed to be an outlier, but because of the long and costly nature, I did not conduct signifcant testing of the entire pipeline. You might want to start a job, and then come back to this file. 
+The longest run I experienced was 4.5 minutes and $1.30 in tokens. This seemed to be an outlier, but because of the long and costly nature, I did not conduct signifcant testing of the entire pipeline. You might want to start a job, and then come back to this file (or do something else).
 
 ## Architecture
 
@@ -197,7 +197,7 @@ I tested the full pipeline by creating 3 additional SOP docx files alongside the
 
 The full pipeline consistently detected every inconsistency across all four cases. In every failure I observed, the root cause was inaccurate graph data.
 
-There was one recurring false positive: the VLM misread a dual-value temperature spec (e.g., `-20/400 F`) as a single concatenated number (`20400`). To fix this, I added the following clarification to the equipment metadata extraction prompt:
+There was one recurring false positive: the VLM misread a dual-value temperature spec (e.g., `-20/400 F`) as a single concatenated number (`20400`). There is an occasional false positive where the VLM reads an operating temp spec as 255 instead of 250. To fix this, I added the following clarification to the equipment metadata extraction prompt:
 
 > "TEMPERATURE RANGES WRITTEN AS 'X/Y': design temp and MDMT are often printed
 > together as a single MIN/MAX pair, e.g. 'MWP 350 PSIG @ -20/400 F'. This is
