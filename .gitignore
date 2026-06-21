@@ -11,9 +11,11 @@ __pycache__/
 dist/
 build/
 
-# data 
+# data
 
 # outputs
+apps/computer_vision/results/
+apps/computer_vision/engine/segments/
 test.py
 *.log
 
