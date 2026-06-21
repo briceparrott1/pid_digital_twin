@@ -5,6 +5,20 @@ interface NodeDetailProps {
   onClose: () => void
 }
 
+function parseMetadataValue(value: unknown): Record<string, unknown> | null {
+  if (typeof value === 'string') {
+    try {
+      const parsed = JSON.parse(value)
+      if (parsed !== null && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        return parsed as Record<string, unknown>
+      }
+    } catch {
+      // not JSON
+    }
+  }
+  return null
+}
+
 export default function NodeDetail({ node, onClose }: NodeDetailProps) {
   if (!node) return null
 
@@ -29,9 +43,11 @@ export default function NodeDetail({ node, onClose }: NodeDetailProps) {
             {node.level}
           </span>
         )}
-        <span className="rounded bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700">
-          confidence: {node.confidence}
-        </span>
+        {node.confidence != null && (
+          <span className="rounded bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700">
+            confidence: {node.confidence}
+          </span>
+        )}
         {node.sop_violation && (
           <span className="rounded bg-red-100 px-2 py-1 text-xs font-medium text-red-700">
             VIOLATION
@@ -45,12 +61,31 @@ export default function NodeDetail({ node, onClose }: NodeDetailProps) {
 
       {metadataEntries.length > 0 && (
         <dl className="space-y-1 text-sm">
-          {metadataEntries.map(([key, value]) => (
-            <div key={key} className="flex justify-between gap-2">
-              <dt className="text-slate-500">{key.replace('metadata_', '')}</dt>
-              <dd className="text-right text-slate-800">{String(value)}</dd>
-            </div>
-          ))}
+          {metadataEntries.map(([key, value]) => {
+            const label = key.replace('metadata_', '')
+            const nested = parseMetadataValue(value)
+            if (nested) {
+              return (
+                <div key={key}>
+                  <dt className="text-slate-500">{label}</dt>
+                  <dd className="ml-3 space-y-0.5">
+                    {Object.entries(nested).map(([subKey, subVal]) => (
+                      <div key={subKey} className="flex justify-between gap-2">
+                        <span className="text-slate-400">{subKey}</span>
+                        <span className="text-right text-slate-800">{String(subVal)}</span>
+                      </div>
+                    ))}
+                  </dd>
+                </div>
+              )
+            }
+            return (
+              <div key={key} className="flex justify-between gap-2">
+                <dt className="text-slate-500">{label}</dt>
+                <dd className="text-right text-slate-800">{String(value)}</dd>
+              </div>
+            )
+          })}
         </dl>
       )}
     </div>

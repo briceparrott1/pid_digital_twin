@@ -18,7 +18,11 @@ async def extract_sop_requirements(prompt: str) -> list:
         max_tokens=2048,
         messages=[{"role": "user", "content": prompt}],
     )
-    logger.info("received SOP requirements from Anthropic")
+    logger.info(
+        "SOP extraction tokens: input=%d output=%d",
+        response.usage.input_tokens,
+        response.usage.output_tokens,
+    )
 
     raw_text = response.content[0].text
     text = (
