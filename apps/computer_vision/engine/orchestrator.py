@@ -1,160 +1,106 @@
-import json
+import asyncio
+import dataclasses
 import logging
 from pathlib import Path
 
 import anthropic
 
-from core.config import get_settings
-from engine.tools.prompts import PID_EXTRACTION_PROMPT
+from engine.config import CutConfig, EngineConfig, RenderConfig, StopConfig, VlmConfig
+from engine.leaf.leaf_read import LeafParseError, async_leaf_read
+from engine.preprocess.pipeline import build_root_segment, load_pair
+from engine.recurse.process import run
+from engine.types import LeafResult, Segment
 
 logger = logging.getLogger(__name__)
 
-_RETRYABLE_ERRORS = (
-    anthropic.APIConnectionError,
-    anthropic.APITimeoutError,
-    anthropic.RateLimitError,
-    anthropic.InternalServerError,
-    anthropic.OverloadedError,
+# Best config from engine-v2 run_35 (node F1=0.976, connection F1=0.873).
+# Three stop thresholds differ from defaults to tighten the dense-segment
+# floor and prevent oversized leaves in busy regions.
+_ENGINE_CONFIG = EngineConfig(
+    stop=StopConfig(
+        min_dim=800,
+        min_area=1_000_000,
+        min_ink_density=0.01,
+        dense_density_threshold=0.01,
+        dense_min_dim=600,
+        dense_min_area=1_500_000,
+    ),
+    cut=CutConfig(
+        dilation_radius=3,
+        band_width=5,
+        midpoint_lambda=0.01,
+        candidate_step_px=2,
+        edge_margin_px=8,
+        min_split_fraction=0.35,
+    ),
+    render=RenderConfig(dpi=300),
+    vlm=VlmConfig(
+        model="claude-opus-4-8",
+        max_tokens=32_000,
+        thinking_budget_tokens=0,
+        max_retries=3,
+        backoff_seconds=1.0,
+        thinking_effort="medium",
+    ),
 )
 
-_BETAS = ["files-api-2025-04-14", "code-execution-2025-08-25"]
-_CODE_EXEC_TOOL = {"type": "code_execution_20250825", "name": "code_execution"}
+
+def _collect_leaves(root: Segment, config: EngineConfig) -> dict[str, Segment]:
+    """Pass 1: dry run with a stub reader to enumerate all leaf segments."""
+    leaves: dict[str, Segment] = {}
+
+    def _stub(segment: Segment) -> LeafResult:
+        leaves[segment.id] = segment
+        return LeafResult(nodes=[], edges=[], split_connections=[], split_nodes=[])
+
+    run(root, _stub, config.cut, config.stop)
+    return leaves
 
 
-async def run_algo(pdf_path: str) -> dict:
-    """Upload P&ID PDF via Files API; let Claude rasterize and tile it via
-    code_execution; return parsed dict with keys: nodes, edges, uncertainty."""
-    settings = get_settings()
-    client = anthropic.AsyncAnthropic(api_key=settings.anthropic_api_key)
-
-    with open(pdf_path, "rb") as fh:
-        uploaded = await client.beta.files.upload(
-            file=(Path(pdf_path).name, fh, "application/pdf"),
-        )
-    file_id = uploaded.id
-    logger.info("uploaded PDF to Files API (file_id=%s)", file_id)
-
-    content = [
-        {"type": "container_upload", "file_id": file_id},
-        {"type": "text", "text": PID_EXTRACTION_PROMPT},
-    ]
-
-    try:
-        for attempt in range(3):
+async def _parallel_leaf_read(
+    leaves: dict[str, Segment], config: EngineConfig
+) -> dict[str, LeafResult]:
+    """Pass 2: fires every leaf VLM call concurrently."""
+    async with anthropic.AsyncAnthropic() as client:
+        tasks = {
+            seg_id: asyncio.create_task(async_leaf_read(segment, config.vlm, client))
+            for seg_id, segment in leaves.items()
+        }
+        results: dict[str, LeafResult] = {}
+        for seg_id, task in tasks.items():
             try:
-                logger.info(
-                    "sending P&ID PDF for code-execution extraction (model=%s attempt=%d)",
-                    settings.model,
-                    attempt,
+                results[seg_id] = await task
+            except LeafParseError as exc:
+                logger.warning("leaf %s parse failed, skipping: %s", seg_id, exc)
+                results[seg_id] = LeafResult(
+                    nodes=[], edges=[], split_connections=[], split_nodes=[]
                 )
-                async with client.beta.messages.stream(
-                    model=settings.model,
-                    max_tokens=64000,
-                    thinking={"type": "adaptive"},
-                    output_config={"effort": "high"},
-                    tools=[_CODE_EXEC_TOOL],
-                    betas=_BETAS,
-                    messages=[{"role": "user", "content": content}],
-                ) as stream:
-                    msg = await stream.get_final_message()
-
-                if msg.stop_reason == "max_tokens":
-                    raise RuntimeError(
-                        "Claude response truncated (stop_reason=max_tokens); "
-                        "raise max_tokens or reduce page complexity"
-                    )
-
-                logger.info(
-                    "received P&ID extraction (input_tokens=%d output_tokens=%d)",
-                    msg.usage.input_tokens,
-                    msg.usage.output_tokens,
-                )
-
-                sandbox_error = any(
-                    getattr(b, "type", None) == "tool_result"
-                    and getattr(b, "is_error", False)
-                    for b in msg.content
-                )
-                if sandbox_error:
-                    logger.warning(
-                        "sandbox rasterization failed; falling back to local PNG upload"
-                    )
-                    return await _png_fallback(client, settings, pdf_path)
-
-                text_blocks = [
-                    b.text for b in msg.content if getattr(b, "type", None) == "text"
-                ]
-                text = text_blocks[-1] if text_blocks else ""
-                text = (
-                    text.strip()
-                    .removeprefix("```json")
-                    .removeprefix("```")
-                    .removesuffix("```")
-                    .strip()
-                )
-                return json.loads(text)
-
-            except _RETRYABLE_ERRORS as exc:
-                if attempt < 2:
-                    logger.warning("retryable error on attempt %d: %s", attempt, exc)
-                    continue
-                raise
-    finally:
-        try:
-            await client.beta.files.delete(file_id)
-        except Exception as exc:
-            logger.warning("failed to delete uploaded file %s: %s", file_id, exc)
+        return results
 
 
-async def _png_fallback(
-    client: anthropic.AsyncAnthropic,
-    settings,
-    pdf_path: str,
-) -> dict:
-    """Rasterize locally with PyMuPDF, upload PNGs via Files API, re-run extraction."""
-    import fitz  # noqa: PLC0415
+async def run_algo(pid_path: str) -> tuple[dict, None]:
+    """Runs the engine-v2 recursive-bisection pipeline on one P&ID page.
 
-    doc = fitz.open(pdf_path)
-    png_ids: list[str] = []
-    try:
-        for page in doc:
-            mat = fitz.Matrix(375 / 72, 375 / 72)
-            pix = page.get_pixmap(matrix=mat)
-            up = await client.beta.files.upload(
-                file=("page.png", pix.tobytes("png"), "image/png"),
-            )
-            png_ids.append(up.id)
+    Expects colored.pdf and uncolored.pdf in the same directory as `pid_path`.
+    Returns ({"nodes": [...], "edges": [...]}, None). Token usage is not
+    tracked by engine-v2 (each leaf is an independent VLM call).
+    """
+    config = _ENGINE_CONFIG
+    data_dir = str(Path(pid_path).parent)
+    logger.info("loading PDF pair from %s", data_dir)
+    image_colored, image_uncolored = load_pair(data_dir, config.render)
+    root = build_root_segment(image_colored, image_uncolored)
 
-        content = [
-            *[{"type": "container_upload", "file_id": fid} for fid in png_ids],
-            {"type": "text", "text": PID_EXTRACTION_PROMPT},
-        ]
-        async with client.beta.messages.stream(
-            model=settings.model,
-            max_tokens=64000,
-            thinking={"type": "adaptive"},
-            output_config={"effort": "high"},
-            tools=[_CODE_EXEC_TOOL],
-            betas=_BETAS,
-            messages=[{"role": "user", "content": content}],
-        ) as stream:
-            msg = await stream.get_final_message()
+    logger.info("collecting leaf segments (pass 1/2)")
+    leaves = _collect_leaves(root, config)
 
-        text_blocks = [
-            b.text for b in msg.content if getattr(b, "type", None) == "text"
-        ]
-        text = text_blocks[-1] if text_blocks else ""
-        text = (
-            text.strip()
-            .removeprefix("```json")
-            .removeprefix("```")
-            .removesuffix("```")
-            .strip()
-        )
-        return json.loads(text)
-    finally:
-        for fid in png_ids:
-            try:
-                await client.beta.files.delete(fid)
-            except Exception as exc:
-                logger.warning("failed to delete PNG file %s: %s", fid, exc)
+    logger.info("firing %d VLM leaf calls in parallel (pass 2/2)", len(leaves))
+    results = await _parallel_leaf_read(leaves, config)
+
+    logger.info("merging results")
+    page_graph = run(root, lambda seg: results[seg.id], config.cut, config.stop)
+
+    nodes = [dataclasses.asdict(n) for n in page_graph.nodes]
+    edges = [dataclasses.asdict(e) for e in page_graph.edges]
+    logger.info("extraction complete nodes=%d edges=%d", len(nodes), len(edges))
+    return {"nodes": nodes, "edges": edges}, None
