@@ -1,44 +1,30 @@
-import asyncio
 import json
 import logging
 
 from core.config import get_settings
 from db.loader import update_job_status, write_extraction
-from extraction.extractors import extract_pid, extract_sop_requirements
-from extraction.prompts import get_pid_prompt, get_sop_prompt
-from parsers.pid_parser import render_pages
+from engine.orchestrator import run_algo
+from extraction.extractors import extract_sop_requirements
+from extraction.prompts import get_sop_prompt
 from parsers.sop_parser import parse_sop
 
 settings = get_settings()
 logger = logging.getLogger(__name__)
 
 
-async def build_pid_extraction() -> dict:
-    images = render_pages(settings.pid_path)
-    prompt = get_pid_prompt()
-    pages = await asyncio.gather(
-        *(extract_pid(image, prompt, page=i) for i, image in enumerate(images, start=1))
-    )
-
-    extraction = {
-        "nodes": [node for page in pages for node in page["nodes"]],
-        "connections": [conn for page in pages for conn in page["connections"]],
-    }
-
-    equipment_list = [n for n in extraction["nodes"] if n["level"] == "equipment"]
-
-    return {"extraction": extraction, "equipment_list": equipment_list}
-
-
-async def build_pid_graph(job_id: str) -> dict:
+async def build_pid_graph(job_id: str) -> None:
     update_job_status(job_id, "extracting")
-    pid_extraction = await build_pid_extraction()
-    write_extraction(job_id, pid_extraction["extraction"])
+    result = await run_algo(settings.pid_path)
+    write_extraction(
+        job_id,
+        {
+            "nodes": result.get("nodes", []),
+            "edges": result.get("edges", []),
+        },
+    )
     update_job_status(job_id, "extracted")
-    return pid_extraction
 
 
-# parsed sop text is injected into prompt (why we're not passing sop text to extract_sop_requirements)
 async def build_sop_requirements(sop_path: str) -> list:
     sop_text = parse_sop(sop_path)
     logger.debug("parsed SOP text from %s:\n%s", sop_path, sop_text)

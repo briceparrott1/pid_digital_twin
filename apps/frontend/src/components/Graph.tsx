@@ -47,8 +47,17 @@ const stylesheet: Stylesheet[] = [
     style: { shape: 'diamond', width: 30, height: 30, 'background-color': '#64748b' },
   },
   {
-    selector: 'node[level = "connector"]',
-    style: { shape: 'ellipse', width: 15, height: 15, 'background-color': '#cbd5e1', label: '' },
+    selector: 'node[level = "junction"]',
+    style: {
+      shape: 'ellipse',
+      width: 28,
+      height: 28,
+      'background-color': '#f97316',
+      color: '#fff',
+      'font-size': 11,
+      'font-weight': 'bold',
+      label: 'data(component_name)',
+    },
   },
   {
     selector: 'node[level = "offpage"]',

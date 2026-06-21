@@ -1,0 +1,174 @@
+{
+  "graph": {
+    "nodes": [
+      {
+        "id": "FROM SLUG CATCHER V-710",
+        "type": "out_of_system",
+        "metadata": {
+          "line_number": "6\"-PL-2000-D",
+          "connector": "0110"
+        }
+      },
+      {
+        "id": "18",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "MV-715-11",
+        "type": "valve",
+        "metadata": {
+          "size": "1\"-O2S",
+          "state": "L.O."
+        }
+      },
+      {
+        "id": "TO CLOSED DRAIN TANK V-005",
+        "type": "out_of_system",
+        "metadata": {
+          "line": "1\"-RV-6119-A",
+          "tag": "061DA"
+        }
+      },
+      {
+        "id": "MV-720-01",
+        "type": "valve",
+        "metadata": {
+          "size": "6\"-D2R"
+        }
+      },
+      {
+        "id": "TO SURGE DRUM V-720",
+        "type": "out_of_system",
+        "metadata": {
+          "line": "6\"-PL-2240-D",
+          "tag": "029B"
+        }
+      },
+      {
+        "id": "9",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "MV-720-04",
+        "type": "valve",
+        "metadata": {
+          "size": "6\"",
+          "state": "N.C.",
+          "spec": "6\"-02R"
+        }
+      },
+      {
+        "id": "TO CONDENSATE 2 PHASE SEPARATOR V-73D",
+        "type": "out_of_system",
+        "metadata": {
+          "line": "6\"-PL-2241-D",
+          "ref": "0300"
+        }
+      },
+      {
+        "id": "TO CLOSED DRAIN SYSTEM 10-0610",
+        "type": "out_of_system",
+        "metadata": {}
+      }
+    ],
+    "edges": [
+      {
+        "a": "18",
+        "b": "MV-715-11"
+      },
+      {
+        "a": "MV-715-11",
+        "b": "TO CLOSED DRAIN TANK V-005"
+      },
+      {
+        "a": "MV-720-01",
+        "b": "TO SURGE DRUM V-720"
+      },
+      {
+        "a": "MV-720-04",
+        "b": "TO CONDENSATE 2 PHASE SEPARATOR V-73D"
+      },
+      {
+        "a": "MV-720-01",
+        "b": "9"
+      }
+    ],
+    "diagnostics": {
+      "leftover_splits": [],
+      "untagged_count": 0,
+      "seam_collisions": 0,
+      "equipment_merges": 0,
+      "seam_pairing_failures": [
+        {
+          "node": "18",
+          "color": "brown",
+          "label": "",
+          "side": "left"
+        },
+        {
+          "node": "9",
+          "color": "yellow",
+          "label": "",
+          "side": "right"
+        },
+        {
+          "node": "9",
+          "color": "blue",
+          "label": "",
+          "side": "left"
+        },
+        {
+          "node": "TO CLOSED DRAIN SYSTEM 10-0610",
+          "color": "yellow",
+          "label": "1\"-DC-3055-D-E",
+          "side": "top"
+        },
+        {
+          "node": "MV-720-04",
+          "color": "yellow",
+          "label": "",
+          "side": "bottom"
+        },
+        {
+          "node": "18",
+          "color": "orange",
+          "label": "",
+          "side": "bottom"
+        },
+        {
+          "id": "",
+          "type": "instrument",
+          "metadata": {
+            "note": "scalloped cloud-shaped symbol with vertical text, possibly reading '715-02'"
+          },
+          "sides": [],
+          "edges": []
+        },
+        {
+          "id": "",
+          "type": "equipment",
+          "metadata": {
+            "note": "large brown/orange rectangular outline, top-left corner visible"
+          },
+          "sides": [],
+          "edges": []
+        },
+        {
+          "node": "FROM SLUG CATCHER V-710",
+          "color": "yellow",
+          "label": "6\" B.F.",
+          "side": "right"
+        }
+      ]
+    }
+  },
+  "diagnostics": {
+    "untagged_count": 0,
+    "seam_collisions": 0,
+    "equipment_fragment_merges": 0,
+    "leftover_splits_at_root": 0,
+    "seam_pairing_failures": 9
+  }
+}

@@ -63,7 +63,9 @@ export default function App() {
     const elements =
       pages.length === 0
         ? graph.elements
-        : graph.elements.filter((el) => el.data.page === selectedPage)
+        : graph.elements.filter(
+            (el) => el.data.page === selectedPage || el.data.page === undefined,
+          )
 
     // Cytoscape throws if an edge references a node that isn't in `elements`
     // (e.g. a connection whose endpoint resolved to a node on another page).

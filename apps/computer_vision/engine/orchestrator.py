@@ -1,119 +1,160 @@
 import json
 import logging
-from datetime import datetime, timezone
+from pathlib import Path
+
+import anthropic
 
 from core.config import get_settings
-from engine.tools.extract import extract_page
-from engine.tools.line_colorizer import colorize_lines
-from engine.tools.preprocess import preprocess
-from engine.tools.prompts import (
-    CONNECTION_PROMPT,
-    EQUIPMENT_METADATA_PROMPT,
-    NODE_ONLY_PROMPT,
-)
-from engine.tools.resolve import flatten_metadata, resolve
-from engine.tools.segment import segment
+from engine.tools.prompts import PID_EXTRACTION_PROMPT
 
 logger = logging.getLogger(__name__)
 
+_RETRYABLE_ERRORS = (
+    anthropic.APIConnectionError,
+    anthropic.APITimeoutError,
+    anthropic.RateLimitError,
+    anthropic.InternalServerError,
+    anthropic.OverloadedError,
+)
 
-def _merge_node(existing: dict, new: dict) -> None:
-    """Equipment nodes are referenced twice on the diagram — once near their
-    symbol, once with their spec callout — so a later sighting may carry
-    metadata fields the first sighting didn't see. Fill in only the missing
-    ones."""
-    for key, value in new.items():
-        if key.startswith("metadata_") and key not in existing:
-            existing[key] = value
+_BETAS = ["files-api-2025-04-14", "code-execution-2025-08-25"]
+_CODE_EXEC_TOOL = {"type": "code_execution_20250825", "name": "code_execution"}
 
 
-async def run_algo(image: bytes) -> dict:
-    """Run a three-pass extraction over a rendered P&ID page image: pass 1
-    extracts nodes from uncolored segments, pass 2 extracts connections from
-    the full color-coded image given the pass-1 node list, and pass 3 fills
-    in equipment metadata from the full enhanced image."""
+async def run_algo(pdf_path: str) -> dict:
+    """Upload P&ID PDF via Files API; let Claude rasterize and tile it via
+    code_execution; return parsed dict with keys: nodes, edges, uncertainty."""
     settings = get_settings()
-    enhanced, clean = preprocess(image)
+    client = anthropic.AsyncAnthropic(api_key=settings.anthropic_api_key)
 
-    # PASS 1 — nodes from UNCOLORED segments
-    regions = segment(enhanced, clean, k=5)
-    all_nodes: dict[str, dict] = {}
-    pass1_results = []
-    for region in regions:
-        r = resolve(await extract_page(region, NODE_ONLY_PROMPT, settings.model))
-        for node in r.get("nodes", []):
-            name = node["component_name"]
-            if name in all_nodes:
-                _merge_node(all_nodes[name], node)
-            else:
-                all_nodes[name] = node
-        pass1_results.append(r)
-
-    # PASS 2 — connections from FULL COLOR-CODED image + known node list
-    color_coded, line_registry = colorize_lines(enhanced, clean)
-    node_list = json.dumps(sorted(all_nodes.keys()), indent=2)
-    conn_result = resolve(
-        await extract_page(
-            color_coded,
-            CONNECTION_PROMPT.format(node_list=node_list),
-            settings.model,
+    with open(pdf_path, "rb") as fh:
+        uploaded = await client.beta.files.upload(
+            file=(Path(pdf_path).name, fh, "application/pdf"),
         )
-    )
+    file_id = uploaded.id
+    logger.info("uploaded PDF to Files API (file_id=%s)", file_id)
 
-    for j in conn_result.get("junctions", []):
-        j.setdefault("level", "junction")
-        name = j["component_name"]
-        if name in all_nodes:
-            _merge_node(all_nodes[name], j)
-        else:
-            all_nodes[name] = j
-
-    # PASS 3 — equipment metadata from the FULL ENHANCED image
-    equipment_names = [
-        n["component_name"] for n in all_nodes.values() if n.get("level") == "equipment"
+    content = [
+        {"type": "container_upload", "file_id": file_id},
+        {"type": "text", "text": PID_EXTRACTION_PROMPT},
     ]
-    meta_result: dict = {"equipment": {}}
-    equipment_specs_found = 0
-    if equipment_names:
-        eq_list = json.dumps(sorted(equipment_names), indent=2)
-        try:
-            meta_result = resolve(
-                await extract_page(
-                    enhanced,
-                    EQUIPMENT_METADATA_PROMPT.format(equipment_list=eq_list),
+
+    try:
+        for attempt in range(3):
+            try:
+                logger.info(
+                    "sending P&ID PDF for code-execution extraction (model=%s attempt=%d)",
                     settings.model,
+                    attempt,
                 )
+                async with client.beta.messages.stream(
+                    model=settings.model,
+                    max_tokens=64000,
+                    thinking={"type": "adaptive"},
+                    output_config={"effort": "high"},
+                    tools=[_CODE_EXEC_TOOL],
+                    betas=_BETAS,
+                    messages=[{"role": "user", "content": content}],
+                ) as stream:
+                    msg = await stream.get_final_message()
+
+                if msg.stop_reason == "max_tokens":
+                    raise RuntimeError(
+                        "Claude response truncated (stop_reason=max_tokens); "
+                        "raise max_tokens or reduce page complexity"
+                    )
+
+                logger.info(
+                    "received P&ID extraction (input_tokens=%d output_tokens=%d)",
+                    msg.usage.input_tokens,
+                    msg.usage.output_tokens,
+                )
+
+                sandbox_error = any(
+                    getattr(b, "type", None) == "tool_result"
+                    and getattr(b, "is_error", False)
+                    for b in msg.content
+                )
+                if sandbox_error:
+                    logger.warning(
+                        "sandbox rasterization failed; falling back to local PNG upload"
+                    )
+                    return await _png_fallback(client, settings, pdf_path)
+
+                text_blocks = [
+                    b.text for b in msg.content if getattr(b, "type", None) == "text"
+                ]
+                text = text_blocks[-1] if text_blocks else ""
+                text = (
+                    text.strip()
+                    .removeprefix("```json")
+                    .removeprefix("```")
+                    .removesuffix("```")
+                    .strip()
+                )
+                return json.loads(text)
+
+            except _RETRYABLE_ERRORS as exc:
+                if attempt < 2:
+                    logger.warning("retryable error on attempt %d: %s", attempt, exc)
+                    continue
+                raise
+    finally:
+        try:
+            await client.beta.files.delete(file_id)
+        except Exception as exc:
+            logger.warning("failed to delete uploaded file %s: %s", file_id, exc)
+
+
+async def _png_fallback(
+    client: anthropic.AsyncAnthropic,
+    settings,
+    pdf_path: str,
+) -> dict:
+    """Rasterize locally with PyMuPDF, upload PNGs via Files API, re-run extraction."""
+    import fitz  # noqa: PLC0415
+
+    doc = fitz.open(pdf_path)
+    png_ids: list[str] = []
+    try:
+        for page in doc:
+            mat = fitz.Matrix(375 / 72, 375 / 72)
+            pix = page.get_pixmap(matrix=mat)
+            up = await client.beta.files.upload(
+                file=("page.png", pix.tobytes("png"), "image/png"),
             )
-        except Exception:
-            pass
+            png_ids.append(up.id)
 
-        for name, specs in (meta_result.get("equipment") or {}).items():
-            if name not in all_nodes:
-                continue
-            if specs:
-                _merge_node(all_nodes[name], flatten_metadata(specs))
-                equipment_specs_found += 1
+        content = [
+            *[{"type": "container_upload", "file_id": fid} for fid in png_ids],
+            {"type": "text", "text": PID_EXTRACTION_PROMPT},
+        ]
+        async with client.beta.messages.stream(
+            model=settings.model,
+            max_tokens=64000,
+            thinking={"type": "adaptive"},
+            output_config={"effort": "high"},
+            tools=[_CODE_EXEC_TOOL],
+            betas=_BETAS,
+            messages=[{"role": "user", "content": content}],
+        ) as stream:
+            msg = await stream.get_final_message()
 
-
-    resolved = {
-        "nodes": list(all_nodes.values()),
-        "connections": conn_result.get("connections", []),
-    }
-
-    return {
-        "raw": {"pass1": pass1_results, "pass2": conn_result, "metadata": meta_result},
-        "resolved": resolved,
-        "colorized_image": color_coded,
-        "segments": regions,
-        "meta": {
-            "model": settings.model,
-            "segments": len(regions),
-            "total_nodes": len(all_nodes),
-            "total_connections": len(resolved["connections"]),
-            "junctions_created": len(conn_result.get("junctions", [])),
-            "lines_detected": len(line_registry),
-            "equipment_metadata_call": bool(equipment_names),
-            "equipment_specs_found": equipment_specs_found,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-        },
-    }
+        text_blocks = [
+            b.text for b in msg.content if getattr(b, "type", None) == "text"
+        ]
+        text = text_blocks[-1] if text_blocks else ""
+        text = (
+            text.strip()
+            .removeprefix("```json")
+            .removeprefix("```")
+            .removesuffix("```")
+            .strip()
+        )
+        return json.loads(text)
+    finally:
+        for fid in png_ids:
+            try:
+                await client.beta.files.delete(fid)
+            except Exception as exc:
+                logger.warning("failed to delete PNG file %s: %s", fid, exc)

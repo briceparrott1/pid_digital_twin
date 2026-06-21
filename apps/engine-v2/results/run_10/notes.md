@@ -1,0 +1,1 @@
+Prompt fixes (out_of_system verbatim id, equipment group heading, 0/D caution, instrument trailing-letter, tag-in-metadata/placeholder bans) + merge architecture fix (unmatched facing obligations retire into failed_splits instead of risking false collision at later unrelated seams) + max_tokens 4096->8192 (run_9 hit a truncated-response parse failure).

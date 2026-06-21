@@ -25,7 +25,6 @@ def write_job(status: str = "pending") -> str:
             status=status,
             created_at=datetime.utcnow().isoformat(),
         )
-
     return job_id
 
 
@@ -42,11 +41,24 @@ def update_job_status(job_id: str, status: str):
 
 
 def write_extraction(job_id: str, extraction: dict):
-    with driver.session() as session:
-        id_map = {}
+    """Write nodes and edges from a VLM extraction to Neo4j.
 
-        for node in extraction["nodes"]:
-            properties = _flatten_properties(node, _NODE_EXCLUDED_KEYS)
+    Node schema: {id, type, metadata}.
+    Edge schema: {a, b}.
+
+    id -> component_name, type -> level so the graph queries and frontend
+    continue to work without changes.
+    """
+    with driver.session() as session:
+        id_map: dict[str, str] = {}
+
+        for node in extraction.get("nodes", []):
+            node_id = node.get("id", "")
+            properties = {
+                "component_name": node_id,
+                "level": node.get("type", ""),
+                **_flatten_metadata(node.get("metadata") or {}),
+            }
             result = session.run(
                 """
                 CREATE (n)
@@ -62,29 +74,24 @@ def write_extraction(job_id: str, extraction: dict):
                 job_id=job_id,
                 properties=properties,
             )
-            id_map[(node["page"], node["component_name"])] = result.single()[
-                "element_id"
-            ]
+            id_map[node_id] = result.single()["element_id"]
 
-        for connection in extraction["connections"]:
-            from_id = id_map.get((connection["page"], connection["start_id"]))
-            to_id = id_map.get((connection["page"], connection["end_id"]))
+        for edge in extraction.get("edges", []):
+            from_id = id_map.get(edge.get("a", ""))
+            to_id = id_map.get(edge.get("b", ""))
             if from_id is None or to_id is None:
                 continue
 
-            properties = _flatten_properties(connection, _CONNECTION_EXCLUDED_KEYS)
             session.run(
                 """
                 MATCH (a) WHERE elementId(a) = $from_id
                 MATCH (b) WHERE elementId(b) = $to_id
                 CREATE (a)-[r:CONNECTED_TO]->(b)
-                SET r += $properties
                 SET r.job_id = $job_id
             """,
                 from_id=from_id,
                 to_id=to_id,
                 job_id=job_id,
-                properties=properties,
             )
 
 
@@ -106,12 +113,8 @@ def write_violation(job_id: str, component_id: str, violation_text: str):
         )
 
 
-_NODE_EXCLUDED_KEYS: set[str] = set()
-_CONNECTION_EXCLUDED_KEYS = {"start_id", "end_id"}
-
-
-def _flatten_properties(item: dict, excluded_keys: set[str]) -> dict:
-    return {k: _sanitize_value(v) for k, v in item.items() if k not in excluded_keys}
+def _flatten_metadata(metadata: dict) -> dict:
+    return {f"metadata_{k}": _sanitize_value(v) for k, v in metadata.items()}
 
 
 def _sanitize_value(value):

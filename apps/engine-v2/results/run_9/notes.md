@@ -1,0 +1,1 @@
+Prompt fixes (out_of_system verbatim id, equipment group heading, 0/D caution, instrument trailing-letter, tag-in-metadata/placeholder bans) + merge architecture fix: unmatched facing obligations now retire into failed_splits instead of falsely propagating to risk collision at unrelated later seams.

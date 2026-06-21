@@ -1,387 +1,128 @@
-# ============================================================================
-# PASS 1 — NODE EXTRACTION (per uncolored segment)
-# ============================================================================
+PID_EXTRACTION_PROMPT = """
+You are reading a complete Piping & Instrumentation Diagram (P&ID). You have the raw PDF file.
 
-NODE_ONLY_PROMPT = r"""
-You are analyzing ONE SEGMENT of a larger P&ID (Piping and Instrumentation Diagram)
-for an oil and gas facility, extracting components to construct a digital twin.
+Your job is to extract a structured description of everything in this diagram: equipment, valves,
+instruments, and the process lines connecting them. Report what you observe precisely and completely.
 
-This image is a cropped region of a full diagram. Components may be partially visible
-or run off the edge of the segment — this is EXPECTED. Extract every component you can
-see, even if partially visible. Do not comment on seeing only a fragment — just extract
-what is present.
+RENDERING MANDATE — follow these steps before transcribing anything
 
-Extract NODES ONLY. Do not extract connections or pipes. Do not create junctions.
+1. Use the code_execution tool to rasterize the PDF to PNG at 300–600 DPI with pdf2image
+   (pdftoppm/poppler is available). Example:
+       from pdf2image import convert_from_path
+       pages = convert_from_path("/home/user/<filename>", dpi=400)
+2. NEVER attempt to read the full page visually in one pass — the diagram is too dense.
+   Divide the rasterized page into a grid of overlapping tiles (~50 % overlap on each edge,
+   roughly 1000 × 1000 px each). Encode and display every tile so you can see it.
+3. View EVERY tile before transcribing any tag or edge.
+4. For any tag, junction mark, or line color you cannot read confidently, issue a second
+   code_execution call to re-crop a tighter zoom on that exact region and view it again.
+5. Always re-crop on: red-pentagon junction marks (small, easy to miss) and any point where
+   a line changes color (color indicates fluid type — read it carefully).
+6. 0-vs-D caution applies inside every tile: any character that looks like "D" in a run of
+   digits is almost certainly "0". Re-crop and zoom before committing.
 
-Every node has these fields:
-- level: equipment / instrument / valve / out_of_system
-- component_name: each level has a specific pattern; each component name is unique
-- metadata: dict of component specifications
-- confidence: high / medium / low
+Do not produce the JSON output until you have viewed every tile. Your output must still
+conform exactly to the schema and rules below.
 
-NAMING CONVENTION:
-Always use dashes as separators in component_name tags, never underscores.
-Correct: PSV-715A, DPI-715A, PI-715A
-Wrong:   PSV_715A, DPI_715A, PI_715A
+What you will see
 
-=====================================================================
-TAG NUMBER OCR - CRITICAL
-=====================================================================
-Component tag numbers contain only DIGITS (0-9), never letters, except for an
-optional single trailing letter suffix (A or B).
+- Equipment, valves, instruments, and other components, each typically labeled with a tag (e.g. "P-745",
+  "MV-715-15A", "FI-715"). See "Tag formats" below for exactly how to transcribe each type.
+- Lines representing process flow, connecting components to each other.
+- Junctions, marked as a RED PENTAGON with a 1-2 DIGIT NUMBER written inside it. A junction is a point
+  where exactly three lines meet (a tee) — never two, never four. A line simply bending or changing color
+  at a corner is NOT a junction; only points marked with the red pentagon are junctions.
+- Lines that cross without connecting. When two unrelated lines cross, one has a small break/fade drawn
+  exactly at the crossing point — this shows the lines pass over each other. There is no red pentagon at
+  such a crossing, and it is not a junction.
+- Equipment is a special case: its name is UNDERLINED, and that same underlined name can legitimately
+  appear TWICE on the page — once next to the symbol itself, and once at the top of a separate, more
+  detailed metadata listing elsewhere. These are the SAME component, not two. Fold the metadata listing's
+  details into that one node's "metadata."
+- Watch for a GROUP heading: sometimes one underlined name covers a pair of installed-in-parallel units
+  (e.g. "F-715 A & B / PARTICULATE FILTER SEPARATOR"), but each individual unit still has its OWN distinct
+  short tag next to its OWN symbol (e.g. "F-715A" and "F-715B"). The group heading is NOT a node — use each
+  unit's own short tag as its "id" and fold the shared details into both units' "metadata."
+- A title block / logo / company information panel, typically in the bottom-right corner. This is
+  page-level information about the drawing itself, not part of the process diagram. Ignore it completely.
+- Lines that leave the diagram entirely (going to another unit, a flare, a battery limit, etc.) are
+  marked with text reading "TO ..." or "FROM ..." next to an arrow. These are real process boundaries, not
+  cropping artifacts — report them as "out_of_system" nodes.
 
-You frequently misread the digit "0" as the letter "D" or "O". When you see a
-"D" or "O" inside the numeric part of a tag, it is the digit "0".
+Tag formats — transcribe ids deterministically
 
-Examples of the SAME tag read correctly:
-  "MV-720-D4"  -> "MV-720-04"   (D is really 0)
-  "MV-715-D2"  -> "MV-715-02"
-  "V-OD5"      -> "V-005"       (O and D are both really 0)
-  "V-73D"      -> "V-730"
+- Valve: printed as MV-NNN-NNL — a letter prefix, a dash, a 3-digit number, a dash, a 2-digit number,
+  then an OPTIONAL single trailing letter directly appended with NO dash (e.g. "MV-715-15A"). Transcribe
+  the dashes exactly where printed.
+- Instrument: printed INSIDE a circle as letters stacked above digits, with NO dash in the diagram. Your
+  output MUST insert a single dash between the letters and the digits (e.g. letters "FI" over digits "715"
+  becomes "FI-715"). Check carefully for a trailing letter after the digits — it is small and easy to miss
+  (e.g. "DPI-715A" not "DPI-715").
+- Equipment: no fixed pattern — transcribe the underlined name verbatim, dashes and all, exactly as
+  printed.
+- Junction: always a 1-2 digit number only, no letters, no dash.
 
-The trailing suffix letter (A/B) is real and stays:
-  "MV-715-02A" stays "MV-715-02A"
-  "MV-715-15B" stays "MV-715-15B"
+CAUTION: the digit "0" (zero) is easy to misread as the letter "D" in this font. Number groups in valve
+tags, instrument tags, and V-numbers (e.g. "V-005") are digits-only — if you read what looks like a "D"
+inside a run of digits, look again before transcribing it.
 
-Read the structure as: LETTERS - DIGITS - DIGITS (optional trailing A/B).
-Any "D" or "O" sitting among digits is the digit 0.
+What to report
 
+Report your answer as a single JSON object with exactly these three top-level keys: "nodes", "edges",
+"uncertainty".
 
----
+"nodes" — all components on the diagram
 
-LEVEL 1 — EQUIPMENT
-Equipment is always a large vessel, exchanger, pump, or cooler with an underlined title.
-Each equipment component typically has two references on the full diagram. Both references
-are in the largest text size and underlined. One reference sits next to the component
-symbol. The other floats in an uncrowded area with specifications next to it. Record those
-specifications by inferring meaning from context and store them in metadata.
-(In a segment you may see only one of the two references — that is fine.)
+A list of objects, each with:
+- "id": the component's tag as printed (e.g. "P-745"). If a component has no visible tag, use "".
+- "type": exactly one of "equipment", "instrument", "junction", "out_of_system", "valve".
+- "metadata": a dict of any other readable details (size, rating, setpoint) — use {} if none.
 
-- level: "equipment"
-- component_name: the underlined name (e.g. "F-715A", "V-745")
-  regex: r'^[A-Z]+-\d+[A-Z]?$'
-- metadata: all visible specs — infer meaning from context (e.g. design_pressure_psig,
-  operating_pressure_psig, design_temp_f, size, capacity)
-- confidence: high / medium / low
+Deciding between the five types:
+- "junction": a red pentagon with a black digit inside it. Only this counts as a junction.
+- "out_of_system": always has text beginning with "TO" or "FROM" next to it. Its "id" IS that text,
+  verbatim (e.g. "TO FLARE HEADER").
+- "equipment": often large, symbol resembles the real-world shape of the equipment.
+- "instrument" / "valve": standard P&ID symbology.
 
----
+"edges" — connections between components
 
-LEVEL 2 — INSTRUMENTS
-Instruments are small circles connected to equipment or pipes by thin lines.
-Inside each circle are 2-3 letters identifying the instrument type followed by a number.
-Common types:
-- PSV: Pressure Safety Valve — circle with spring/triangle actuator above
-- PI: Pressure Indicator
-- PDI: Pressure Differential Indicator
-- LG: Level Gauge — typically two connection points on vessel side
-- LT/PT/TT: Level/Pressure/Temperature Transmitter
-- LAH/LAL: Level Alarm High/Low
-- TC/TI: Temperature Controller/Indicator
+A list of objects, each with "a" and "b" — the ids of the two nodes this line connects. Report an
+edge for every visible connection between two identifiable nodes on the diagram.
 
-- level: "instrument"
-- component_name: letters, dash, numbers, optional trailing letter (e.g. PSV-715A, PI-715A)
-  regex: r'^[A-Z]+-\d+[A-Z]?$'
-- metadata: all visible specs — infer meaning from context (e.g. set_pressure_psig,
-  inlet_size, outlet_size)
-- confidence: high / medium / low
+"uncertainty"
 
----
+A short string describing anything you were genuinely unsure about — a hard-to-read tag, an
+ambiguous line, a connection you could not confirm. Leave as "" if nothing is worth flagging.
 
-LEVEL 3 — VALVES
-Valves sit directly on process lines, interrupting them with a symbol.
-Common symbols:
-- Bow-tie or X shape: manual gate/globe valve (tagged MV-xxx)
-- Bow-tie with actuator on top: control valve
-- Bow-tie with circle on stem: ball valve
-- Arrow pointing into line: check valve
+What NOT to do
 
-Extract ALL visible valve tags. Never skip — use low confidence if the label is hard to read.
+- Do NOT invent a junction mark. Junctions are already marked in the diagram as red pentagons — only
+  read existing marks.
+- Do NOT report a group heading (e.g. "F-715 A & B") as a node id. Use each unit's own short tag.
+- Do NOT capture valve operational annotations (L.O., N.O., N.C.) as part of a tag or as a separate
+  node — put them in "metadata" if anything.
+- Do NOT use markdown code fences or any text outside the JSON object. Return ONLY the JSON object,
+  starting with { and ending with }.
+- Do NOT invent a numeric or alphanumeric id for an out_of_system node — its "id" must be the
+  TO/FROM text exactly as printed, or "" if nothing legible is visible.
+- Do NOT use a placeholder character (like "?") for an illegible character within a tag. Either
+  commit to your best reading, or use "" and describe it in "uncertainty."
 
-- level: "valve"
-- component_name: full tag (e.g. "MV-715-01", "MV-742-03")
-  regex: r'^MV-\d{3}-\d{2,3}[A-Z]?$'
-- metadata: all visible specs — infer meaning from context (e.g. nominal_pipe_size)
-- confidence: high / medium / low
+Example output
 
----
-
-OUT OF SYSTEM
-Used when a pipe leaves the page. These occur near the edges of the full diagram and have
-text describing the destination beginning with "FROM" or "TO".
-
-Format the component_name as: FROM_{DESTINATION} or TO_{DESTINATION}
-Replace spaces with underscores. Uppercase everything.
-Example: "TO CLOSED DRAIN TANK V-005" -> "TO_CLOSED_DRAIN_TANK_V-005"
-
-- level: "out_of_system"
-- component_name: the text beginning with FROM or TO, formatted as above
-- confidence: high / medium / low
-
-===========================
-OUTPUT FORMAT
-===========================
-
-Return ONLY valid JSON, no markdown, no preamble:
 {
-    "nodes": [
-        {
-            "level": "equipment",
-            "component_name": "F-715A",
-            "metadata": {
-                "design_pressure_psig": 275,
-                "operating_pressure_psig": 230,
-                "design_temp_f": 100
-            },
-            "confidence": "high"
-        },
-        {
-            "level": "valve",
-            "component_name": "MV-715-01",
-            "metadata": {"nominal_pipe_size": "6\"-D2R"},
-            "confidence": "high"
-        }
-    ],
-    "uncertainties": "..."
+  "nodes": [
+    {"id": "F-715A", "type": "equipment", "metadata": {"size": "18'' O.D. x 42.5'' T/T"}},
+    {"id": "MV-715-03A", "type": "valve", "metadata": {}},
+    {"id": "1", "type": "junction", "metadata": {}},
+    {"id": "TO SURGE DRUM V-720", "type": "out_of_system", "metadata": {}}
+  ],
+  "edges": [
+    {"a": "F-715A", "b": "MV-715-03A"},
+    {"a": "MV-715-03A", "b": "1"},
+    {"a": "1", "b": "TO SURGE DRUM V-720"}
+  ],
+  "uncertainty": ""
 }
-
-Add a top-level "uncertainties" field: 1-3 sentences on what was hard to read or ambiguous
-in this segment. If nothing was unclear, say so briefly.
-"""
-
-
-# ============================================================================
-# PASS 2 — CONNECTION EXTRACTION (full color-coded image + known node list)
-# ============================================================================
-
-CONNECTION_PROMPT = r"""
-You are tracing the pipe CONNECTIONS in a full P&ID (Piping and Instrumentation
-Diagram) for an oil and gas facility, to construct a digital twin graph.
-
-This image has two visual layers — treat them differently:
-
-1. BLACK AND WHITE layer — the original diagram: equipment vessels, instruments,
-   valves, and their text tags. This is where the components are.
-
-2. COLOR layer — the process pipes have been drawn over in colors. Each colored
-   line carries a label of the form "line_<number>" (e.g. "line_5"). Color is a
-   tracing aid only — see the rules below for exactly how to use it.
-
-The components have ALREADY been identified. Here is the complete list of known
-components — use these EXACT names, never invent new ones:
-
-{node_list}
-
-=====================================================================
-HOW TO USE COLOR  (read carefully — this is subtle)
-=====================================================================
-
-Color helps you FOLLOW a pipe, but it is NOT a perfect signal:
-
-- SAME color along a path = definitely the same continuous pipe. Follow it.
-- Color MAY CHANGE at a corner/bend even though it is still ONE pipe continuing.
-  A color change by itself does NOT mean a new pipe or a junction — it is often
-  just the pipe turning a corner.
-- A junction does NOT require a color change. A pipe can run straight through a
-  junction keeping its color while another pipe taps into it.
-
-THEREFORE: use color to keep track of which physical line you are following, but
-determine CONNECTIONS and JUNCTIONS from the geometry of where lines actually
-meet — NOT from where colors change.
-
-=====================================================================
-THE MOST IMPORTANT RULE — DO NOT GUESS BY PROXIMITY
-=====================================================================
-
-Do NOT connect a component to a nearby vessel just because it sits close to it.
-Physical closeness is NOT a connection. Many valves sit right next to a vessel
-but actually connect to ANOTHER valve or a junction on the other end of their
-pipe.
-
-A connection exists ONLY if you can follow a continuous pipe (one color, or one
-color continuing around a corner) from one component to the other. If you cannot
-trace an actual pipe between two things, do NOT report a connection between them.
-
-Follow the pipe to its real endpoint. That endpoint is usually another valve,
-an instrument, or a junction — and only sometimes the large vessel nearby.
-
-=====================================================================
-JUNCTIONS  (3-way tees only)
-=====================================================================
-
-A junction is a point where exactly THREE pipe ends meet — a tee. This happens
-when a line branches into two, or when one line taps into another line's run.
-Every junction has exactly 3 connections to it. There are NO 4-way junctions.
-
-CROSSINGS ARE NOT JUNCTIONS: where two lines cross in an X, one line hops over
-the other with a visible gap/break. They do NOT connect. Never create a junction
-at a crossing. Only create a junction where 3 pipe ends genuinely meet with no
-gap.
-
-When you find a junction:
-- Create a junction node named "j1", "j2", "j3", ... (assign sequentially)
-- Report exactly 3 connections, each from the junction to one of the 3 pipe ends
-  it joins (a component or another junction)
-
-=====================================================================
-LINE TYPES
-=====================================================================
-- major_process: thick solid lines — main process flow
-- minor_process: thin solid lines — instrument taps, small connections
-- signal:        dashed lines — pneumatic, electrical, or hydraulic signals
-
-
-=====================================================================
-TAG NUMBER OCR - CRITICAL
-=====================================================================
-Component tag numbers contain only DIGITS (0-9), never letters, except for an
-optional single trailing letter suffix (A or B).
-
-You frequently misread the digit "0" as the letter "D" or "O". When you see a
-"D" or "O" inside the numeric part of a tag, it is the digit "0".
-
-Examples of the SAME tag read correctly:
-  "MV-720-D4"  -> "MV-720-04"   (D is really 0)
-  "MV-715-D2"  -> "MV-715-02"
-  "V-OD5"      -> "V-005"       (O and D are both really 0)
-  "V-73D"      -> "V-730"
-
-The trailing suffix letter (A/B) is real and stays:
-  "MV-715-02A" stays "MV-715-02A"
-  "MV-715-15B" stays "MV-715-15B"
-
-Read the structure as: LETTERS - DIGITS - DIGITS (optional trailing A/B).
-Any "D" or "O" sitting among digits is the digit 0.
-
-=====================================================================
-SMALL VENT?DRAIN VALVES - CRITICAL
-=====================================================================
-
-SMALL VENT/DRAIN VALVES: valves on small (1/2", 1") lines near a vessel
-usually do NOT connect directly to the vessel. They chain to OTHER small
-valves and instruments (PSV, PI) through junctions — a relief/drain manifold.
-If you cannot trace a small valve's line, do NOT default to connecting it to
-the nearest vessel. Leave it out and note it.
-
-=====================================================================
-PROCEDURE
-=====================================================================
-1. Pick a colored pipe. Follow it from one end to the other, continuing around
-   corners even if the color changes, until you reach a component or a junction.
-2. Record that connection using EXACT component names (or a junction node).
-3. Where a third pipe end meets a line along its run, create a 3-way junction.
-4. Repeat until every visible pipe is traced.
-5. Do NOT add connections you cannot trace. Omit uncertain ones (note them in
-   uncertainties) rather than guessing by proximity.
-
-=====================================================================
-OUTPUT FORMAT
-=====================================================================
-
-Return ONLY valid JSON, no markdown, no preamble:
-{{
-    "junctions": [
-        {{"component_name": "j1", "confidence": "high"}}
-    ],
-    "connections": [
-        {{
-            "start_id": "FROM_SLUG_CATCHER_V-710",
-            "end_id": "j1",
-            "line_type": "major_process",
-            "confidence": "high"
-        }},
-        {{
-            "start_id": "j1",
-            "end_id": "MV-715-02A",
-            "line_type": "major_process",
-            "confidence": "high"
-        }},
-        {{
-            "start_id": "j1",
-            "end_id": "MV-715-02B",
-            "line_type": "major_process",
-            "confidence": "high"
-        }}
-    ],
-    "uncertainties": "..."
-}}
-
-Add a top-level "uncertainties" field: 1-3 sentences on connections you were
-unsure about — crossings, dense manifolds, or ambiguous endpoints. If you were
-tempted to guess a connection by proximity but could not trace it, say so here
-instead of inventing the connection.
-"""
-
-
-# ============================================================================
-# PASS 3 — EQUIPMENT METADATA (full enhanced image + known equipment list)
-# ============================================================================
-
-EQUIPMENT_METADATA_PROMPT = r"""
-You are reading the EQUIPMENT SPECIFICATIONS from a full P&ID (Piping and
-Instrumentation Diagram) for an oil and gas facility.
-
-The equipment vessels have ALREADY been identified. Here is the list of known
-equipment — extract specs ONLY for these, using these EXACT names:
-
-{equipment_list}
-
-WHERE TO LOOK:
-Each equipment item has an underlined header/title block listing its
-specifications. These header blocks are almost always in the UPPER THIRD of the
-page, floating in an open/uncrowded area away from the vessel symbol itself.
-The header is large, underlined text. Look there first.
-
-A header block has the equipment name(s) and tag, a description of the vessel
-type, and a list of spec lines. The labels you will see include things like
-SIZE, OPERATING, DESIGN, MDMT, and DESIGN CAP, each followed by values and
-units (PSIG, °F, GPM, PSID, O.D., T/T, etc.). Read the actual values printed on
-THIS diagram — do not assume any particular numbers.
-
-A single header may cover several equipment items at once (for example a tag
-written as "X-NNN A & B" applies to both X-NNNA and X-NNNB) — in that case give
-the same specs to each named item.
-
-WHAT TO EXTRACT (infer meaning + units from context):
-- size: the physical size string exactly as printed (e.g. an O.D. and a
-  tan-to-tan length with their units)
-- operating_pressure_psig: operating pressure as a number
-- design_specs: {{ pressure_psig, temp_f }}  (the DESIGN pressure and maximum
-  design temperature)
-- MDMT: {{ pressure_psig, temp_f }}  (Minimum Design Metal Temperature;
-  temp_f is the temperature, which may be negative — keep the sign)
-- design_cap: {{ gpm, psid_clean }}  (design capacity flow and clean pressure drop)
-
-Use numbers (not strings) for all numeric values. Omit any field you genuinely
-cannot find rather than guessing.
-
-TEMPERATURE RANGES WRITTEN AS "X/Y": design temp and MDMT are often printed
-together as a single MIN/MAX pair, e.g. "MWP 350 PSIG @ -20/400 F". This is
-TWO separate numbers, not one:
-  - the lower (often negative) number -> MDMT.temp_f
-  - the higher number -> design_specs.temp_f
-Example: "-20/400 F" means MDMT.temp_f = -20 and design_specs.temp_f = 400.
-NEVER concatenate the two numbers into one value (e.g. "-20/400" is NOT 20400).
-
-OCR NOTE: you sometimes misread the digit "0" as "D" or "O". In any numeric
-spec, "D"/"O" among digits is the digit 0.
-
-OUTPUT FORMAT — return ONLY valid JSON, no markdown, no preamble. The values
-below are illustrative placeholders ONLY; report the actual values you read
-from the diagram:
-{{
-    "equipment": {{
-        "<equipment_name>": {{
-            "size": "<size string as printed>",
-            "operating_pressure_psig": 0,
-            "design_specs": {{ "pressure_psig": 0, "temp_f": 0 }},
-            "MDMT": {{ "pressure_psig": 0, "temp_f": 0 }},
-            "design_cap": {{ "gpm": 0, "psid_clean": 0 }}
-        }}
-    }},
-    "uncertainties": "..."
-}}
-
-Include an entry for every known equipment name. If a header is missing or
-unreadable for an item, include the name with an empty object {{}} and note it
-in uncertainties.
 """

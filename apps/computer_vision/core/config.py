@@ -17,8 +17,8 @@ class Settings(BaseSettings):
     neo4j_user: str
     neo4j_password: str
     sop_path: str = "data/sop/sop.docx"
-    pid_path: str = "data/pid/diagram.pdf"
-    model: str = "claude-opus-4-5"
+    pid_path: str = "data/pid/colored.pdf"
+    model: str = "claude-opus-4-8"
 
     class Config:
         env_file = ROOT_ENV_FILE

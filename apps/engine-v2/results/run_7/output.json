@@ -1,0 +1,18 @@
+{
+  "graph": {
+    "nodes": [],
+    "edges": [],
+    "diagnostics": {
+      "leftover_splits": [],
+      "untagged_count": 0,
+      "seam_collisions": 0,
+      "equipment_merges": 0
+    }
+  },
+  "diagnostics": {
+    "untagged_count": 0,
+    "seam_collisions": 0,
+    "equipment_fragment_merges": 0,
+    "leftover_splits_at_root": 0
+  }
+}

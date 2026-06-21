@@ -1,0 +1,748 @@
+{
+  "graph": {
+    "nodes": [
+      {
+        "id": "0110",
+        "type": "out_of_system",
+        "metadata": {
+          "text": "FROM SLUG CATCHER V-710",
+          "line": "6\"-PL-2000-D"
+        }
+      },
+      {
+        "id": "F-715 A & B",
+        "type": "equipment",
+        "metadata": {
+          "description": "PARTICULATE FILTER SEPARATOR",
+          "size": "18\" O.D. x 42.5\" T/T",
+          "operating": "230 PSIG",
+          "design": "275 PSIG @ 100\u00b0F",
+          "MDMT": "-20\u00b0F @ 275 PSIG",
+          "design_cap": "180 GPM @ 2.25 PSID CLEAN"
+        }
+      },
+      {
+        "id": "MV-715-11",
+        "type": "valve",
+        "metadata": {
+          "size": "1\"-D2S",
+          "note": "L.O."
+        }
+      },
+      {
+        "id": "061DA",
+        "type": "out_of_system",
+        "metadata": {
+          "text": "TO CLOSED DRAIN TANK V-OD5",
+          "line": "1\"-RV-6119-A"
+        }
+      },
+      {
+        "id": "MV-720-01",
+        "type": "valve",
+        "metadata": {
+          "size": "6\"-D2R"
+        }
+      },
+      {
+        "id": "029B",
+        "type": "out_of_system",
+        "metadata": {
+          "text": "TO SURGE DRUM V-720",
+          "line": "6\"-PL-2240-D"
+        }
+      },
+      {
+        "id": "PSV-715A",
+        "type": "instrument",
+        "metadata": {
+          "set": "275 PSIG",
+          "size": "3/4\"x1\""
+        }
+      },
+      {
+        "id": "MV-715-10A",
+        "type": "valve",
+        "metadata": {
+          "size": "1\"-D2S"
+        }
+      },
+      {
+        "id": "MV-715-09A",
+        "type": "valve",
+        "metadata": {
+          "size": "1/2\"-D2S"
+        }
+      },
+      {
+        "id": "5",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "DPI-715",
+        "type": "instrument",
+        "metadata": {}
+      },
+      {
+        "id": "MV-715-12A",
+        "type": "valve",
+        "metadata": {
+          "size": "1/2\"-D2S"
+        }
+      },
+      {
+        "id": "MV-715-03A",
+        "type": "valve",
+        "metadata": {
+          "size": "1\"",
+          "note": "TUBING"
+        }
+      },
+      {
+        "id": "4",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "PI-715A",
+        "type": "instrument",
+        "metadata": {}
+      },
+      {
+        "id": "MV-715-14A",
+        "type": "valve",
+        "metadata": {
+          "size": "1\"-D2S"
+        }
+      },
+      {
+        "id": "6",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "1",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "MV-715-02A",
+        "type": "valve",
+        "metadata": {
+          "size": "6\"-D2R"
+        }
+      },
+      {
+        "id": "7",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "MV-715-05A",
+        "type": "valve",
+        "metadata": {
+          "size": "1\"-D2S"
+        }
+      },
+      {
+        "id": "11",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "12",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "13",
+        "type": "junction",
+        "metadata": {
+          "size": "1/2\"",
+          "note": "D2",
+          "label": "1/2\"-D2"
+        }
+      },
+      {
+        "id": "MV-715-13A",
+        "type": "valve",
+        "metadata": {
+          "size": "1/2\"-D2S"
+        }
+      },
+      {
+        "id": "3",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "MV-715-01",
+        "type": "valve",
+        "metadata": {
+          "size": "6\"-D2R"
+        }
+      },
+      {
+        "id": "MV-715-02B",
+        "type": "valve",
+        "metadata": {
+          "size": "6\"-D2R"
+        }
+      },
+      {
+        "id": "PSV-715B",
+        "type": "instrument",
+        "metadata": {
+          "size": "3/4\"x1\"",
+          "set": "275 PSIG"
+        }
+      },
+      {
+        "id": "MV-715-10B",
+        "type": "valve",
+        "metadata": {
+          "size": "1\"-D2S",
+          "note": "L.O."
+        }
+      },
+      {
+        "id": "MV-715-D9B",
+        "type": "valve",
+        "metadata": {
+          "size": "1/2\"-D2S"
+        }
+      },
+      {
+        "id": "",
+        "type": "junction",
+        "metadata": {
+          "text": "TO CLOSED DRAIN SYSTEM 10-0610",
+          "line": "6\"-PL-2241-D"
+        }
+      },
+      {
+        "id": "PI-715B",
+        "type": "instrument",
+        "metadata": {}
+      },
+      {
+        "id": "MV-715-03B",
+        "type": "valve",
+        "metadata": {
+          "size": "1\"",
+          "spec": "D2S"
+        }
+      },
+      {
+        "id": "MV-715-12B",
+        "type": "valve",
+        "metadata": {
+          "size": "1/2\"",
+          "spec": "D2S"
+        }
+      },
+      {
+        "id": "F-715B",
+        "type": "equipment",
+        "metadata": {}
+      },
+      {
+        "id": "16",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "8",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "MV-715-06B",
+        "type": "valve",
+        "metadata": {
+          "size": "6\"-D2R"
+        }
+      },
+      {
+        "id": "14",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "15",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "MV-715-05B",
+        "type": "valve",
+        "metadata": {
+          "size": "1\"-D2S"
+        }
+      },
+      {
+        "id": "MV-715-04B",
+        "type": "valve",
+        "metadata": {
+          "size": "1\"-D2S"
+        }
+      },
+      {
+        "id": "MV-715-13B",
+        "type": "valve",
+        "metadata": {
+          "size": "1/2\"-D2S"
+        }
+      },
+      {
+        "id": "MV-715-14B",
+        "type": "valve",
+        "metadata": {
+          "size": "1\"-D2S"
+        }
+      },
+      {
+        "id": "MV-715-15B",
+        "type": "valve",
+        "metadata": {
+          "size": "1\"-D2S"
+        }
+      },
+      {
+        "id": "10",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "MV-715-07",
+        "type": "valve",
+        "metadata": {
+          "size": "1\"-D2S"
+        }
+      },
+      {
+        "id": "9",
+        "type": "junction",
+        "metadata": {}
+      },
+      {
+        "id": "MV-72D-D4",
+        "type": "valve",
+        "metadata": {
+          "size": "6\"-D2R",
+          "state": "N.C."
+        }
+      }
+    ],
+    "edges": [
+      {
+        "a": "MV-715-11",
+        "b": "061DA"
+      },
+      {
+        "a": "MV-720-01",
+        "b": "029B"
+      },
+      {
+        "a": "PSV-715A",
+        "b": "MV-715-10A"
+      },
+      {
+        "a": "MV-715-09A",
+        "b": "5"
+      },
+      {
+        "a": "DPI-715",
+        "b": "MV-715-12A"
+      },
+      {
+        "a": "MV-715-03A",
+        "b": "4"
+      },
+      {
+        "a": "PI-715A",
+        "b": "MV-715-14A"
+      },
+      {
+        "a": "1",
+        "b": "MV-715-02A"
+      },
+      {
+        "a": "7",
+        "b": "MV-715-05A"
+      },
+      {
+        "a": "4",
+        "b": "MV-715-02A"
+      },
+      {
+        "a": "6",
+        "b": "7"
+      },
+      {
+        "a": "MV-715-14A",
+        "b": "11"
+      },
+      {
+        "a": "11",
+        "b": "13"
+      },
+      {
+        "a": "12",
+        "b": "13"
+      },
+      {
+        "a": "3",
+        "b": "MV-715-01"
+      },
+      {
+        "a": "3",
+        "b": "MV-715-02B"
+      },
+      {
+        "a": "MV-715-D9B",
+        "b": ""
+      },
+      {
+        "a": "",
+        "b": "MV-715-10B"
+      },
+      {
+        "a": "PI-715B",
+        "b": "MV-715-03B"
+      },
+      {
+        "a": "MV-715-03B",
+        "b": "16"
+      },
+      {
+        "a": "MV-715-02B",
+        "b": "16"
+      },
+      {
+        "a": "8",
+        "b": "MV-715-06B"
+      },
+      {
+        "a": "14",
+        "b": "15"
+      },
+      {
+        "a": "14",
+        "b": "MV-715-05B"
+      },
+      {
+        "a": "15",
+        "b": "MV-715-04B"
+      },
+      {
+        "a": "10",
+        "b": "MV-715-07"
+      },
+      {
+        "a": "7",
+        "b": "MV-715-12B"
+      },
+      {
+        "a": "11",
+        "b": "MV-715-14B"
+      },
+      {
+        "a": "MV-715-10A",
+        "b": "10"
+      },
+      {
+        "a": "MV-715-12A",
+        "b": "MV-715-13B"
+      },
+      {
+        "a": "MV-72D-D4",
+        "b": ""
+      },
+      {
+        "a": "9",
+        "b": "MV-72D-D4"
+      },
+      {
+        "a": "MV-715-01",
+        "b": "9"
+      },
+      {
+        "a": "MV-720-01",
+        "b": "MV-715-15B"
+      }
+    ],
+    "diagnostics": {
+      "leftover_splits": [
+        {
+          "node": "MV-715-10B",
+          "color": "orange",
+          "label": "",
+          "side": "right"
+        },
+        {
+          "node": "15",
+          "color": "orange",
+          "label": "",
+          "side": "right"
+        },
+        {
+          "node": "MV-715-14A",
+          "color": "yellow",
+          "label": "D2S",
+          "side": "right"
+        },
+        {
+          "node": "8",
+          "color": "blue",
+          "label": "",
+          "side": "right"
+        },
+        {
+          "node": "10",
+          "color": "blue",
+          "label": "",
+          "side": "right"
+        },
+        {
+          "node": "MV-715-03A",
+          "color": "magenta",
+          "label": "D2S",
+          "side": "right"
+        },
+        {
+          "node": "MV-715-13B",
+          "color": "brown",
+          "label": "",
+          "side": "right"
+        },
+        {
+          "node": "16",
+          "color": "green",
+          "label": "",
+          "side": "right"
+        },
+        {
+          "node": "MV-715-12B",
+          "color": "green",
+          "label": "",
+          "side": "right"
+        },
+        {
+          "node": "1",
+          "color": "green",
+          "label": "",
+          "side": "right"
+        },
+        {
+          "node": "13",
+          "color": "green",
+          "label": "",
+          "side": "right"
+        },
+        {
+          "node": "",
+          "color": "black",
+          "label": "",
+          "side": "right"
+        },
+        {
+          "node": "12",
+          "color": "yellow",
+          "label": "INSUL/HT",
+          "side": "bottom"
+        },
+        {
+          "node": "DPI-715",
+          "color": "yellow",
+          "label": "",
+          "side": "bottom"
+        },
+        {
+          "node": "",
+          "color": "yellow",
+          "label": "",
+          "side": "bottom"
+        },
+        {
+          "node": "8",
+          "color": "brown",
+          "label": "",
+          "side": "bottom"
+        },
+        {
+          "node": "5",
+          "color": "green",
+          "label": "",
+          "side": "bottom"
+        },
+        {
+          "node": "MV-715-14B",
+          "color": "green",
+          "label": "",
+          "side": "bottom"
+        },
+        {
+          "node": "MV-715-15B",
+          "color": "green",
+          "label": "",
+          "side": "bottom"
+        },
+        {
+          "node": "9",
+          "color": "magenta",
+          "label": "",
+          "side": "top"
+        },
+        {
+          "node": "PSV-715B",
+          "color": "black",
+          "label": "",
+          "side": "top"
+        },
+        {
+          "node": "",
+          "color": "yellow",
+          "label": "1\"-DC-3055-D-E",
+          "side": "top"
+        },
+        {
+          "node": "MV-715-05B",
+          "color": "green",
+          "label": "",
+          "side": "top"
+        },
+        {
+          "node": "MV-715-04B",
+          "color": "green",
+          "label": "",
+          "side": "top"
+        },
+        {
+          "node": "MV-715-11",
+          "color": "brown",
+          "label": "13",
+          "side": "bottom"
+        },
+        {
+          "node": "",
+          "color": "black",
+          "label": "",
+          "side": "left"
+        },
+        {
+          "node": "0110",
+          "color": "yellow",
+          "label": "6\" B.F.",
+          "side": "right"
+        },
+        {
+          "node": "1",
+          "color": "yellow",
+          "label": "",
+          "side": "left"
+        },
+        {
+          "node": "",
+          "color": "brown",
+          "label": "",
+          "side": "left"
+        },
+        {
+          "node": "6",
+          "color": "brown",
+          "label": "",
+          "side": "left"
+        },
+        {
+          "node": "12",
+          "color": "brown",
+          "label": "",
+          "side": "left"
+        },
+        {
+          "node": "",
+          "color": "green",
+          "label": "",
+          "side": "left"
+        },
+        {
+          "node": "MV-715-09A",
+          "color": "blue",
+          "label": "",
+          "side": "left"
+        },
+        {
+          "node": "4",
+          "color": "orange",
+          "label": "",
+          "side": "left"
+        },
+        {
+          "node": "MV-715-06B",
+          "color": "orange-brown",
+          "label": "6\"-D2R",
+          "side": "left"
+        },
+        {
+          "id": "",
+          "type": "equipment",
+          "metadata": {},
+          "sides": [
+            "right"
+          ],
+          "edges": []
+        },
+        {
+          "id": "MV-715-?",
+          "type": "valve",
+          "metadata": {
+            "size": "1/2\"",
+            "spec": "D2S",
+            "note": "L.O."
+          },
+          "sides": [
+            "top"
+          ],
+          "edges": []
+        },
+        {
+          "id": "2",
+          "type": "junction",
+          "metadata": {},
+          "sides": [
+            "left"
+          ],
+          "edges": [
+            {
+              "a": "3",
+              "b": "\u0000self"
+            }
+          ]
+        },
+        {
+          "id": "",
+          "type": "valve",
+          "metadata": {
+            "size": "6\"-D2R",
+            "tag": "MV-715-06A"
+          },
+          "sides": [
+            "left"
+          ],
+          "edges": []
+        }
+      ],
+      "untagged_count": 1,
+      "seam_collisions": 14,
+      "equipment_merges": 3
+    }
+  },
+  "diagnostics": {
+    "untagged_count": 1,
+    "seam_collisions": 14,
+    "equipment_fragment_merges": 3,
+    "leftover_splits_at_root": 39
+  }
+}

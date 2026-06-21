@@ -1,0 +1,51 @@
+# min_dim/min_area sized for a ~4-deep recursion on a 5100x3300px (300dpi)
+# page: each cut roughly halves the longer side, landing leaves around
+# 1275x825px after 4 cuts -- floor set a bit below that so a typical depth-4
+# leaf doesn't get force-stopped a level early.
+stop:
+  min_dim: 800
+  min_area: 1000000
+  # Calibrated against the real run_4 segments: density <=0.0069 was every
+  # near-empty/wasted leaf, density >=0.0090 was every leaf with real
+  # content. Raised from 0.008 to 0.01 to also catch the borderline 0.0090
+  # segment as sparse.
+  min_ink_density: 0.01
+  # The four busiest real leaves (47-369 components) were all >=0.03; they
+  # get the smaller dense floor below instead, for one more cut.
+  dense_density_threshold: 0.03
+  dense_min_dim: 400
+  dense_min_area: 250000
+
+cut:
+  dilation_radius: 3
+  band_width: 5
+  midpoint_lambda: 0.01
+  candidate_step_px: 2
+  edge_margin_px: 8
+  # Every accepted cut must leave each child at least this fraction of the
+  # parent's dimension -- prevents a cheap near-edge whitespace gutter from
+  # producing a useless sliver, regardless of segment scale.
+  min_split_fraction: 0.35
+
+# Placeholder DPI for rendering both the colored and uncolored PDFs; both render
+# calls must use this same value or their pixel dimensions can never match.
+render:
+  dpi: 300
+
+# Leaf VLM call parameters. max_retries/backoff_seconds govern transport/API
+# failures only (timeouts, rate limits, server errors) -- never parse failures.
+vlm:
+  model: claude-opus-4-8
+  # max_tokens is the TOTAL cap across thinking + the actual answer. Raised
+  # 4096 → 8192 → 16000 → 32000 each time the F-715A/B vessel crops consumed
+  # the full budget in thinking and produced no text block.
+  max_tokens: 32000
+  # thinking_budget_tokens: for models that support thinking.type=enabled this
+  # would cap thinking and guarantee headroom for the answer. claude-opus-4-8
+  # only supports adaptive mode, so this is unused (set to 0).
+  thinking_budget_tokens: 0
+  max_retries: 3
+  backoff_seconds: 1.0
+  # Explicit thinking budget: use thinking.type=enabled + budget_tokens instead
+  # of adaptive, so thinking can never crowd out the answer.
+  thinking_effort: high

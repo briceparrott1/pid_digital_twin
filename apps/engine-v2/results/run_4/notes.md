@@ -1,0 +1,1 @@
+New viewing tool: each -r run now also writes overlay.png, the full colored page with every leaf segment's bbox drawn in red and labeled with its recursion id, for eyeballing all segment boundaries at once instead of opening crops individually.
